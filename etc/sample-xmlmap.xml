@@ -1,0 +1,33 @@
+<!-- Sample XML mapping file (for XML Adapter)
+
+Atributes...
+      name: The name of the target field where data will be stored
+      path: The xpath expression used to retrieve the source data
+      mode: One of [first, append, or multi] where:
+              - first means grab the first value found
+              - append means append all values found (for instance multiple <p> tags)
+              - multi means treat each value found as a separate value (multi-valued)
+      comp: Whether or not data should be compressed before indexing
+-->
+
+<attributemap>
+    <attribute name="isbn"           path="//safari/book/isbn"                          mode="first"  comp="false" />
+    <attribute name="edition"        path="//safari/book/edition"                       mode="first"  comp="false" />
+    <attribute name="bookurl"        path="//safari/book/url"                           mode="first"  comp="false" />
+    <attribute name="booktitle"      path="//safari/book/title"                         mode="first"  comp="false" />
+    <attribute name="sectiontitle"   path="//safari/book/content/section/title"         mode="first"  comp="false" />
+    <attribute name="sectionid"      path="//safari/book/content/section/@id"           mode="first"  comp="false" />
+    <attribute name="body"           path="//safari/book/content/section/para"          mode="append" comp="false" />
+    <attribute name="dateadded"      path="//safari/book/dateadded"                     mode="first"  comp="false" />
+    <attribute name="dateupdated"    path="//safari/book/dateupdated"                   mode="first"  comp="false" />
+    <attribute name="numpages"       path="//safari/book/pagenums"                      mode="first"  comp="false" />
+    <attribute name="pubdate"        path="//safari/book/pubdate"                       mode="first"  comp="false" />
+    <attribute name="publisher"      path="//safari/book/publisher/publishername"       mode="first"  comp="false" />
+    <attribute name="description"    path="//safari/book/description"                   mode="first"  comp="false" />
+    <attribute name="msrp"           path="//safari/book/msrp"                          mode="first"  comp="false" />
+    <attribute name="authorfns"      path="//safari/book/authorgroup/author/firstname"  mode="multi"  comp="false" />
+    <attribute name="authorlns"      path="//safari/book/authorgroup/author/surname"    mode="multi"  comp="false" />
+    <attribute name="authorother"    path="//safari/book/authorgroup/author/othername"  mode="multi"  comp="false" />
+    <attribute name="subjects"       path="//safari/book/subjectset/subject"            mode="multi"  comp="false" />
+    <attribute name="chapter"        path="//safari/book/content/chapter/@id"           mode="first"  comp="false" />
+</attributemap>

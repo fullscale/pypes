@@ -1,0 +1,6 @@
+include pypesvds/config/deployment.ini_tmpl
+include pypesvds/controllers/mime.types
+recursive-include pypesvds/public *
+recursive-include pypesvds/templates *
+recursive-include pypesvds/component/default_project *
+recursive-include pypesvds/plugins *

@@ -1,0 +1,3 @@
+[pypesvds.plugins]
+${package} = ${package}.${package}:${egg}
+

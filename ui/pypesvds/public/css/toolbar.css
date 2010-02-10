@@ -1,0 +1,32 @@
+#toolbar { 
+  border: 1px solid #999;
+  height: 54px;
+  background: url(/images/toolbar_grey.png) repeat-x scroll 0 0;
+} 
+#button_run .first-child {} 
+#button_save .first-child {} 
+#button_export .first-child {}
+#button_about .first-child {}
+#button_signout .first-child {}
+#toolbar .yui-button, #toolbar .yui-button .first-child {} 
+#toolbar .yui-button-hover, #toolbar .yui-button-hover .first-child { border-color: #f68cc2; } 
+#toolbar .yui-button {
+  position:relative;
+  bottom: 12px;
+  left: 10px;
+}
+#toolbar .yui-button button {
+  color: #ffffff;
+  font-family: "Lucida Grande", Helvetica, Verdana;
+  font-size: 9pt;
+  background: url(/images/gloss.png) repeat-x left center;
+  background-color: #4c4c4c;
+  border-width: 0 1px;
+  border-style: solid;
+  border-color: #000000;
+}
+#toolbar .yui-button a {
+  color: #ffffff;
+  font: normal 10px "Lucida Grande", Helvetica, Verdana;
+  line-height: 15px;
+} 

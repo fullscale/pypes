@@ -1,0 +1,51 @@
+body {
+    background: url(/images/loginStripes.png) repeat;
+    background-color:#ffffff;
+    font-size:100%;
+}
+
+div.wrap {
+    height:100%
+    width:100%
+}
+
+h3 {
+    color:#ec3b97; 
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size:14px
+}
+
+.textbox_outer {
+    padding-top: 20px; 
+    padding-left: 150px;
+}
+
+.box_wrapper {
+    background-image:url(/images/PypesLoginDialog.png); background-position:center; background-repeat:no-repeat;
+    width:575px; height:180px; margin:auto; margin-top: 0px;
+}
+
+input {
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size:13px;
+    border: 1px solid #666666;
+}
+
+input.textboxes {
+    width:270px;
+    /* background-color:#ec3b97; */
+    background-color:#ffffff;
+    color: #f62590;
+}
+
+input.btn {
+    color:#ff00c0;
+    border: 1px solid #999999;
+}
+
+div.labels {
+    width:100px;
+    color:#666666;
+    font-family: "Lucida Grande",Verdana,sans-serif;
+    font-size: 84%;
+}

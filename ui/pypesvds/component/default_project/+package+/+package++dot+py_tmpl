@@ -1,0 +1,81 @@
+import logging
+#import traceback
+
+from pypes.component import Component
+
+log = logging.getLogger(__name__)
+
+class ${egg}(Component):
+    """the __metatype__ class attribute defines what type of component we
+       are creating.
+
+       There are 5 types of components:
+
+            - ADAPTER     - adapts incoming data to document model
+            - TRANSFORMER - transforms the document fields
+            - FILTER      - filters documents
+            - EXTRACTOR   - extracts information from document fields
+            - OPERATOR    - document level operators (i.e., split, merge, etc.)
+            - PUBLISHER   - publishes document data to a specified format
+
+        You MUST specify a __metatype__ or your component will not get 
+        registered with the UI and it will not show up.
+    """
+    __metatype__ = 'TRANSFORMER'
+
+    def __init__(self):
+        # initialize parent class
+        Component.__init__(self)
+        
+        #Optionally add/remove component ports
+        #self.remove_output('out')
+        #self.add_input('in2', 'A description of what this port is used for')
+
+        #Setup any user parameters required by this component 
+        #self.set_parameter('MyParam', '')  # 2nd argument is the default value
+        #self.set_parameter('OptionParam', 'opt1', ['opt1', 'opt2', 'opt3'])
+
+        # log successful initialization message
+        log.info('Component Initialized: %s' % self.__class__.__name__)
+
+    def run(self):
+        # Define our components entry point
+        while True:
+
+            # get parameters outside doc loop for better performace
+            # however, it is not necessary to do it here
+            #
+            #try:
+            #    # check all parameters inside try block and raise an Exception
+            #    # if they fail
+            #    myparam = self.get_parameter('MyParam')
+            #    if myparam is None:
+            #        raise ValueError, 'MyParam not set'
+            #except Exception as e:
+            #    log.error('Component Failed: %s' % self.__class__.__name__)
+            #    log.error('Reason: %s' % str(e))
+            #
+            #    # optionally send all docs without processing
+            #    for d in self.receive_all('in'):
+            #        self.send('out', d)
+            #
+            #    self.yield_ctrl()
+            #    continue # so next time we are called we continue at the top               
+
+            # for each document waiting on our input port
+            for doc in self.receive_all('in'):
+                try:
+                    # perform your custom logic here
+                    # make sure to check for multivalued fields
+                    pass
+                except Exception as e:
+                    log.error('Component Failed: %s' % self.__class__.__name__)
+                    log.error('Reason: %s' % str(e))                    
+                    #log.error(traceback.print_exc())
+
+                # send the document to the next component
+                self.send('out', doc)
+
+            # yield the CPU, allowing another component to run
+            self.yield_ctrl()
+

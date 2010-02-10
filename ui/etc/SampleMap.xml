@@ -1,0 +1,6 @@
+<attributemap>
+    <attribute name='id'    path='//documents/document/id'             mode='first'  comp='false' />
+    <attribute name='title' path='//documents/document/title'          mode='first'  comp='false' />
+    <attribute name='langs' path='//documents/document/languages/lang' mode='multi'  comp='false' />
+    <attribute name='type'  path='//documents/document/type'           mode='first'  comp='false' />
+</attributemap>

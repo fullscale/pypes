@@ -1,0 +1,112 @@
+
+/* first or middle sibling, no children (was tn.gif)*/
+.ygtvtn { background: url(/images/folders/plugin.png) 0 0 no-repeat; width:17px; height:22px; }
+
+/* first or middle sibling, collapsable (was tm.gif)*/
+.ygtvtm { 
+    /* background: url(/images/folders/tm.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer */
+    background: url(/images/nav-bg.gif) 0 0  no-repeat; 
+    cursor:pointer; 
+    height:26px;
+}
+
+/* first or middle sibling, collapsable, hover */
+.ygtvtmh { 
+    /*background: url(/images/folders/tmh.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer */
+ background: url(/images/nav-bg.gif) 0 0  no-repeat; cursor:pointer; height:26px;
+}
+
+/* first or middle sibling, expandable (was tp.gif)*/
+.ygtvtp { 
+    /* background: url(/images/folders/tp.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer */
+ background: url(/images/nav-bg.gif) 0 0  no-repeat; cursor:pointer; height:26px;
+}
+
+/* first or middle sibling, expandable, hover */
+.ygtvtph { 
+    /* background: url(/images/folders/tph.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer */
+  background: url(/images/nav-bg.gif) 0 0  no-repeat; cursor:pointer; height:26px;   
+}
+
+/* last sibling, no children  (was ln.gif)*/
+.ygtvln { background: url(/images/folders/plugin.png) 0 0 no-repeat; width:17px; height:22px; }
+
+/* Last sibling, collapsable */
+.ygtvlm { background: url(/images/nav-bg.gif) 0 0 no-repeat; height:22px; cursor:pointer }
+
+/* Last sibling, collapsable, hover */
+.ygtvlmh { background: url(/images/nav-bg.gif) 0 0 no-repeat; height:22px; cursor:pointer }
+
+/* Last sibling, expandable */
+.ygtvlp { 
+    /* background: url(/images/folders/lp.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer */
+ background: url(/images/nav-bg.gif) 0 0  no-repeat; cursor:pointer; height:22px;
+}
+
+/* Last sibling, expandable, hover */
+.ygtvlph { 
+    /* background: url(/images/folders/lph.gif) 0 0 no-repeat; width:34px; height:22px; cursor:pointer */
+  background: url(/images/nav-bg.gif) 0 0  no-repeat; height:22px; cursor:pointer; 
+}
+
+/* Loading icon */
+.ygtvloading { background: url(/images/folders/loading.gif) 0 0 no-repeat; width:16px; height:22px; }
+
+/* the style for the empty cells that are used for rendering the depth 
+ * of the node */
+.ygtvdepthcell { background: url(/images/folders/vline.gif) 0 0 no-repeat; width:17px; height:22px; }
+
+.ygtvblankdepthcell { width:17px; height:22px; }
+
+/* the style of the div around each node */
+.ygtvitem { }  
+
+.ygtvitem  table{
+    margin-bottom:0;
+}
+.ygtvitem  td {
+    border:none;
+    padding:0;
+}
+
+.ygtvdepth0 { 
+    background: url(/images/nav-bg-shim.gif) 0 0  repeat; cursor:pointer; height:26px; width:100%; 
+    color:#ffffff; 
+}
+.ygtvdepth1 { 
+    background: none;
+    color:#000000;    
+}
+
+.ygtvcontent { background: inherit 18 0 repeat; }
+/* .ygtvcontent .ygtvfocus { background: url(images/nav-bg-shim.gif) 0 0  repeat; cursor:pointer; height:26px; width:164px;}*/
+.ygtvrow { background: none; }
+
+/* the style of the div around each node's collection of children */
+.ygtvchildren {}  
+* html .ygtvchildren { height:1%; }
+
+/* the style of the text label in ygTextNode */
+.ygtvlabel, .ygtvlabel:link, .ygtvlabel:visited, .ygtvlabel:hover { 
+	margin-left:2px;
+	text-decoration: none;
+    background: none;
+    color:inherit;
+    font: normal 12px "Lucida Grande", Helvetica, Verdana, "Lucida Grande";
+    line-height: 15px;
+    /*display: block;*/
+    /*font-size: 10pt;*/
+}
+
+.ygtvspacer {
+    text-decoration:none;
+    outline-style:none;
+}
+
+.ygtvfocus .ygtvlabel, .ygtvfocus .ygtvlabel:link, .ygtvfocus .ygtvlabel:visited, .ygtvfocus .ygtvlabel:hover {
+    background-color: transparent;
+}
+
+::selection { background: #ec8bbd; }
+::-moz-selection { background: #ec8bbd; }
+

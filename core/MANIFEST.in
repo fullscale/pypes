@@ -1,0 +1,2 @@
+recursive-include examples *
+recursive-include api-docs *
