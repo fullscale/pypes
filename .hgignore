@@ -2,8 +2,8 @@ syntax: glob
 *.o
 *.pyc
 *.pyo
-.project
 .pydevproject
+.project
 develop-eggs
 eggs
 parts
