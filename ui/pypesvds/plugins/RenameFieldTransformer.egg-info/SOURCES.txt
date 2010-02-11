@@ -1,0 +1,9 @@
+setup.py
+RenameFieldTransformer.egg-info/PKG-INFO
+RenameFieldTransformer.egg-info/SOURCES.txt
+RenameFieldTransformer.egg-info/dependency_links.txt
+RenameFieldTransformer.egg-info/entry_points.txt
+RenameFieldTransformer.egg-info/paster_plugins.txt
+RenameFieldTransformer.egg-info/top_level.txt
+renamefieldtransformer/__init__.py
+renamefieldtransformer/renamefieldtransformer.py

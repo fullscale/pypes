@@ -1,0 +1,9 @@
+setup.py
+CSVReaderAdapter.egg-info/PKG-INFO
+CSVReaderAdapter.egg-info/SOURCES.txt
+CSVReaderAdapter.egg-info/dependency_links.txt
+CSVReaderAdapter.egg-info/entry_points.txt
+CSVReaderAdapter.egg-info/paster_plugins.txt
+CSVReaderAdapter.egg-info/top_level.txt
+csvreaderadapter/__init__.py
+csvreaderadapter/csvreaderadapter.py

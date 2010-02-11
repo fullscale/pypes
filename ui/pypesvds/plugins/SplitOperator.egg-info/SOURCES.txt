@@ -1,0 +1,9 @@
+setup.py
+SplitOperator.egg-info/PKG-INFO
+SplitOperator.egg-info/SOURCES.txt
+SplitOperator.egg-info/dependency_links.txt
+SplitOperator.egg-info/entry_points.txt
+SplitOperator.egg-info/paster_plugins.txt
+SplitOperator.egg-info/top_level.txt
+splitoperator/__init__.py
+splitoperator/splitoperator.py

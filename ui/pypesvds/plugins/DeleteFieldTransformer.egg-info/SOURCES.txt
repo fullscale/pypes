@@ -1,0 +1,9 @@
+setup.py
+DeleteFieldTransformer.egg-info/PKG-INFO
+DeleteFieldTransformer.egg-info/SOURCES.txt
+DeleteFieldTransformer.egg-info/dependency_links.txt
+DeleteFieldTransformer.egg-info/entry_points.txt
+DeleteFieldTransformer.egg-info/paster_plugins.txt
+DeleteFieldTransformer.egg-info/top_level.txt
+deletefieldtransformer/__init__.py
+deletefieldtransformer/deletefieldtransformer.py

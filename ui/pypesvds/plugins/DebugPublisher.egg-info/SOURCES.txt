@@ -1,0 +1,9 @@
+setup.py
+DebugPublisher.egg-info/PKG-INFO
+DebugPublisher.egg-info/SOURCES.txt
+DebugPublisher.egg-info/dependency_links.txt
+DebugPublisher.egg-info/entry_points.txt
+DebugPublisher.egg-info/paster_plugins.txt
+DebugPublisher.egg-info/top_level.txt
+debugpublisher/__init__.py
+debugpublisher/debugpublisher.py

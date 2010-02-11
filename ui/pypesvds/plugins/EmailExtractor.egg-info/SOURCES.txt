@@ -1,0 +1,9 @@
+setup.py
+EmailExtractor.egg-info/PKG-INFO
+EmailExtractor.egg-info/SOURCES.txt
+EmailExtractor.egg-info/dependency_links.txt
+EmailExtractor.egg-info/entry_points.txt
+EmailExtractor.egg-info/paster_plugins.txt
+EmailExtractor.egg-info/top_level.txt
+emailextractor/__init__.py
+emailextractor/emailextractor.py

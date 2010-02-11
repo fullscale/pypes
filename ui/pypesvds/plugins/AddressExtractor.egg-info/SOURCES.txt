@@ -1,0 +1,9 @@
+setup.py
+AddressExtractor.egg-info/PKG-INFO
+AddressExtractor.egg-info/SOURCES.txt
+AddressExtractor.egg-info/dependency_links.txt
+AddressExtractor.egg-info/entry_points.txt
+AddressExtractor.egg-info/paster_plugins.txt
+AddressExtractor.egg-info/top_level.txt
+addressextractor/__init__.py
+addressextractor/addressextractor.py

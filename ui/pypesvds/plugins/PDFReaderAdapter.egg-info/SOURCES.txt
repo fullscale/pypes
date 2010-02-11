@@ -1,0 +1,9 @@
+setup.py
+PDFReaderAdapter.egg-info/PKG-INFO
+PDFReaderAdapter.egg-info/SOURCES.txt
+PDFReaderAdapter.egg-info/dependency_links.txt
+PDFReaderAdapter.egg-info/entry_points.txt
+PDFReaderAdapter.egg-info/paster_plugins.txt
+PDFReaderAdapter.egg-info/top_level.txt
+pdfreaderadapter/__init__.py
+pdfreaderadapter/pdfreaderadapter.py

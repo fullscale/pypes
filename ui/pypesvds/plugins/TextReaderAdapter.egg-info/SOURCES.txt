@@ -1,0 +1,9 @@
+setup.py
+TextReaderAdapter.egg-info/PKG-INFO
+TextReaderAdapter.egg-info/SOURCES.txt
+TextReaderAdapter.egg-info/dependency_links.txt
+TextReaderAdapter.egg-info/entry_points.txt
+TextReaderAdapter.egg-info/paster_plugins.txt
+TextReaderAdapter.egg-info/top_level.txt
+textreaderadapter/__init__.py
+textreaderadapter/textreaderadapter.py

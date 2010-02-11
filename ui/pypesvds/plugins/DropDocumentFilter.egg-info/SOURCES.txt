@@ -1,0 +1,9 @@
+setup.py
+DropDocumentFilter.egg-info/PKG-INFO
+DropDocumentFilter.egg-info/SOURCES.txt
+DropDocumentFilter.egg-info/dependency_links.txt
+DropDocumentFilter.egg-info/entry_points.txt
+DropDocumentFilter.egg-info/paster_plugins.txt
+DropDocumentFilter.egg-info/top_level.txt
+dropdocumentfilter/__init__.py
+dropdocumentfilter/dropdocumentfilter.py

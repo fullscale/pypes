@@ -1,0 +1,9 @@
+setup.py
+SolrXMLAdapter.egg-info/PKG-INFO
+SolrXMLAdapter.egg-info/SOURCES.txt
+SolrXMLAdapter.egg-info/dependency_links.txt
+SolrXMLAdapter.egg-info/entry_points.txt
+SolrXMLAdapter.egg-info/paster_plugins.txt
+SolrXMLAdapter.egg-info/top_level.txt
+solrxmladapter/__init__.py
+solrxmladapter/solrxmladapter.py

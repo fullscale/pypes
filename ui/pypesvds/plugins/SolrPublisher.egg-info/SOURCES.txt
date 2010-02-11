@@ -1,0 +1,9 @@
+setup.py
+SolrPublisher.egg-info/PKG-INFO
+SolrPublisher.egg-info/SOURCES.txt
+SolrPublisher.egg-info/dependency_links.txt
+SolrPublisher.egg-info/entry_points.txt
+SolrPublisher.egg-info/paster_plugins.txt
+SolrPublisher.egg-info/top_level.txt
+solrpublisher/__init__.py
+solrpublisher/solrpublisher.py

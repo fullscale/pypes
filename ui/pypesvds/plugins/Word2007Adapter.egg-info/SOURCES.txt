@@ -1,0 +1,9 @@
+setup.py
+Word2007Adapter.egg-info/PKG-INFO
+Word2007Adapter.egg-info/SOURCES.txt
+Word2007Adapter.egg-info/dependency_links.txt
+Word2007Adapter.egg-info/entry_points.txt
+Word2007Adapter.egg-info/paster_plugins.txt
+Word2007Adapter.egg-info/top_level.txt
+word2007adapter/__init__.py
+word2007adapter/word2007adapter.py

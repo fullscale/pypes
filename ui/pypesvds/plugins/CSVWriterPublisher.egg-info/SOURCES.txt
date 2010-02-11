@@ -1,0 +1,9 @@
+setup.py
+CSVWriterPublisher.egg-info/PKG-INFO
+CSVWriterPublisher.egg-info/SOURCES.txt
+CSVWriterPublisher.egg-info/dependency_links.txt
+CSVWriterPublisher.egg-info/entry_points.txt
+CSVWriterPublisher.egg-info/paster_plugins.txt
+CSVWriterPublisher.egg-info/top_level.txt
+csvwriterpublisher/__init__.py
+csvwriterpublisher/csvwriterpublisher.py

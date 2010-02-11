@@ -1,0 +1,9 @@
+setup.py
+NullPublisher.egg-info/PKG-INFO
+NullPublisher.egg-info/SOURCES.txt
+NullPublisher.egg-info/dependency_links.txt
+NullPublisher.egg-info/entry_points.txt
+NullPublisher.egg-info/paster_plugins.txt
+NullPublisher.egg-info/top_level.txt
+nullpublisher/__init__.py
+nullpublisher/nullpublisher.py

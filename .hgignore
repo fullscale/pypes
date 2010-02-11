@@ -9,6 +9,6 @@ eggs
 parts
 .installed.cfg
 *.ini
-plugins
+/plugins
 pypesvds.log
 data

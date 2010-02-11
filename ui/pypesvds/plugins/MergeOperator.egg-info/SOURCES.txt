@@ -1,0 +1,9 @@
+setup.py
+MergeOperator.egg-info/PKG-INFO
+MergeOperator.egg-info/SOURCES.txt
+MergeOperator.egg-info/dependency_links.txt
+MergeOperator.egg-info/entry_points.txt
+MergeOperator.egg-info/paster_plugins.txt
+MergeOperator.egg-info/top_level.txt
+mergeoperator/__init__.py
+mergeoperator/mergeoperator.py

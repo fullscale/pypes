@@ -1,0 +1,9 @@
+setup.py
+XMLAdapter.egg-info/PKG-INFO
+XMLAdapter.egg-info/SOURCES.txt
+XMLAdapter.egg-info/dependency_links.txt
+XMLAdapter.egg-info/entry_points.txt
+XMLAdapter.egg-info/paster_plugins.txt
+XMLAdapter.egg-info/top_level.txt
+xmladapter/__init__.py
+xmladapter/xmladapter.py

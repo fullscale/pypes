@@ -1,0 +1,9 @@
+setup.py
+SetFieldTransformer.egg-info/PKG-INFO
+SetFieldTransformer.egg-info/SOURCES.txt
+SetFieldTransformer.egg-info/dependency_links.txt
+SetFieldTransformer.egg-info/entry_points.txt
+SetFieldTransformer.egg-info/paster_plugins.txt
+SetFieldTransformer.egg-info/top_level.txt
+setfieldtransformer/__init__.py
+setfieldtransformer/setfieldtransformer.py

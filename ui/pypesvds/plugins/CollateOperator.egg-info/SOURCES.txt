@@ -1,0 +1,9 @@
+setup.py
+CollateOperator.egg-info/PKG-INFO
+CollateOperator.egg-info/SOURCES.txt
+CollateOperator.egg-info/dependency_links.txt
+CollateOperator.egg-info/entry_points.txt
+CollateOperator.egg-info/paster_plugins.txt
+CollateOperator.egg-info/top_level.txt
+collateoperator/__init__.py
+collateoperator/collateoperator.py

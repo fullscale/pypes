@@ -1,0 +1,9 @@
+setup.py
+XMLMapperTransformer.egg-info/PKG-INFO
+XMLMapperTransformer.egg-info/SOURCES.txt
+XMLMapperTransformer.egg-info/dependency_links.txt
+XMLMapperTransformer.egg-info/entry_points.txt
+XMLMapperTransformer.egg-info/paster_plugins.txt
+XMLMapperTransformer.egg-info/top_level.txt
+xmlmappertransformer/__init__.py
+xmlmappertransformer/xmlmappertransformer.py

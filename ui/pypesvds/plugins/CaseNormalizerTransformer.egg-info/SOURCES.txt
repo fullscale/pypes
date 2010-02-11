@@ -1,0 +1,9 @@
+setup.py
+CaseNormalizerTransformer.egg-info/PKG-INFO
+CaseNormalizerTransformer.egg-info/SOURCES.txt
+CaseNormalizerTransformer.egg-info/dependency_links.txt
+CaseNormalizerTransformer.egg-info/entry_points.txt
+CaseNormalizerTransformer.egg-info/paster_plugins.txt
+CaseNormalizerTransformer.egg-info/top_level.txt
+casenormalizertransformer/__init__.py
+casenormalizertransformer/casenormalizertransformer.py

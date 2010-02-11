@@ -1,0 +1,9 @@
+setup.py
+HTMLAdapter.egg-info/PKG-INFO
+HTMLAdapter.egg-info/SOURCES.txt
+HTMLAdapter.egg-info/dependency_links.txt
+HTMLAdapter.egg-info/entry_points.txt
+HTMLAdapter.egg-info/paster_plugins.txt
+HTMLAdapter.egg-info/top_level.txt
+htmladapter/__init__.py
+htmladapter/htmladapter.py
