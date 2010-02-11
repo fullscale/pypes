@@ -12,3 +12,9 @@ parts
 /plugins
 pypesvds.log
 data
+bin/buildout
+bin/paster
+bin/python
+core/pypes.egg-info
+ui/*.egg
+ui/pypesvds.egg-info
