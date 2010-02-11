@@ -1,0 +1,9 @@
+setup.py
+FastXMLPublisher.egg-info/PKG-INFO
+FastXMLPublisher.egg-info/SOURCES.txt
+FastXMLPublisher.egg-info/dependency_links.txt
+FastXMLPublisher.egg-info/entry_points.txt
+FastXMLPublisher.egg-info/paster_plugins.txt
+FastXMLPublisher.egg-info/top_level.txt
+fastxmlpublisher/__init__.py
+fastxmlpublisher/fastxmlpublisher.py
