@@ -1,0 +1,8 @@
+setup.py
+rssadapter/rssadapter.py
+rssadapter/__init__.py
+RSSAdapter.egg-info/PKG-INFO
+RSSAdapter.egg-info/SOURCES.txt
+RSSAdapter.egg-info/dependency_links.txt
+RSSAdapter.egg-info/entry_points.txt
+RSSAdapter.egg-info/top_level.txt
