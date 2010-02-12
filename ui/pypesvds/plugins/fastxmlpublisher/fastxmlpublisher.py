@@ -82,8 +82,15 @@ class FastXML(Component):
                     writebuf.append('\t<document>')
                     for key, vals in doc:
                         sep = ';'
+
+                        # get a document level separator
+                        if doc.has_meta('separator'):
+                            sep = doc.get_meta('separator')
+
+                        # get a field level separator that overwrite a
+                        # document level separator
                         if doc.has_meta('separator', attr=key):
-                            sep = get_meta('separator', attr=key)
+                            sep = doc.get_meta('separator', attr=key)
 
                         escaped = sep.join(self._escape(vals))
                         writebuf.append('\t\t<element name="%s">' % key)
