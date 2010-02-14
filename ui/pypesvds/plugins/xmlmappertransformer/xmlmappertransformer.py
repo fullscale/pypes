@@ -126,7 +126,8 @@ class XMLMapper(Component):
                     newdoc.set(name, payload, multi=multi)
 
                 except Exception as e:
-                    log.error('Error parsing xml file: %s' % doc.get('url', ''))
+                    log.error('Error parsing xml file: %s' % \
+                                            doc.get_meta('url', default=''))
                     log.error('Reason: %s' % str(e))
                     #traceback.print_exc()
                     newdoc.set(name, u'')
@@ -194,14 +195,7 @@ class XMLMapper(Component):
             # for each document waiting on our input port
             for doc in self.receive_all('in'):
                 try:
-                    mime = doc.get('mimetype')
-                    
-                    # if this is not a xml file, move on to the next doc
-                    if mime != 'application/xml':
-                        continue
-
                     self._do_mapping(doc)
-
                 except Exception as e:
                     log.error('Component Failed: %s' % self.__class__.__name__)
                     log.error('Reason: %s' % str(e))                    

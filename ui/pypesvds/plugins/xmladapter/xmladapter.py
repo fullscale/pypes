@@ -122,7 +122,8 @@ class XML(Component):
                     newdoc.set(name, payload, multi=multi)
 
                 except Exception as e:
-                    log.error('Error parsing xml file: %s' % doc.get('url', ''))
+                    log.error('Error parsing xml file: %s' % \
+                                            doc.get_meta('url', default=''))
                     log.error('Reason: %s' % str(e))
                     #traceback.print_exc()
                     newdoc.set(name, u'')
@@ -182,7 +183,7 @@ class XML(Component):
             # for each document waiting on our input port
             for doc in self.receive_all('in'):
                 try:
-                    mime = doc.get('mimetype')
+                    mime = doc.get_meta('mimetype')
                     
                     # if this is not a xml file, move on to the next doc
                     if mime != 'application/xml':

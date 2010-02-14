@@ -20,7 +20,8 @@ class Debug(Component):
             # for each document waiting on our input port
             for doc in self.receive_all('in'):
                 try:
-                    docid = doc.get('url', 'no url found').encode('utf-8')
+                    docid = doc.get('id', doc.get_meta('url',
+                                        default='no id found')).encode('utf-8')
                     print '\n====>> Debug Dump: %s <<====' % docid 
                     doc.pprint(meta=True)
                     print '====>> End Debug: %s <<====\n' % docid

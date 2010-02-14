@@ -75,8 +75,8 @@ class Word2007(Component):
             for doc in self.receive_all('in'):
                 try:
                     data = doc.get('data')
-                    mime = doc.get('mimetype')
-                    fname = doc.get('url')
+                    mime = doc.get_meta('mimetype')
+                    fname = doc.get_meta('url', default='unknown')
 
                     # if there is no data, move on to the next doc
                     if data is None:
@@ -86,7 +86,7 @@ class Word2007(Component):
                     if mime != 'application/msword':
                         continue
 
-                    # Word2007 docs should end in docx since
+                    # Word2007 docs should end in docx
                     if fname[fname.rfind('.'):].lower() != '.docx':
                         log.debug('Document does not end in .docx')
                         continue

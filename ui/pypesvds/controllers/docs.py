@@ -53,10 +53,10 @@ class DocsController(BaseController):
                 ##status = app_globals.dfg.send(('http://www.esr-technologies.com:5000/sink/' + fname, fname))
                 doc = Packet()
                 doc.add('data', filedata)
-                doc.add('contentlength', filelen)
-                doc.add('mimetype', contenttype)
-                doc.add('url', fname)
-                doc.add('processingtime', unicode(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')))
+                doc.set_meta('contentlength', filelen)
+                doc.set_meta('mimetype', contenttype)
+                doc.set_meta('url', fname)
+                doc.set_meta('processingtime', unicode(datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')))
                 status = app_globals.dfg.send(doc)
                 #                               #{'data': filedata,
                 #                               #'contentlength': filelen,

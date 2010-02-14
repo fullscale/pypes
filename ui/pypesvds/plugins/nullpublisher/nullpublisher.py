@@ -21,7 +21,8 @@ class Null(Component):
             # for each document waiting on our input port
             for doc in self.receive_all('in'):
                 try:
-                    log.info('Null output: %s' % doc.get('url', 'no url'))
+                    log.info('Null output: %s' % doc.get('id', \
+                                doc.get_meta('url', default='no id')))
                 except Exception as e:
                     log.error('Component Failed: %s' % self.__class__.__name__)
                     log.error('Reason: %s' % str(e))                    

@@ -22,7 +22,7 @@ class RSS(Component):
             for doc in self.receive_all('in'):
                 try:
                     data = doc.get('data')
-                    mime = doc.get('mimetype')
+                    mime = doc.get_meta('mimetype')
 
                     # if there is no data, move on to the next doc
                     if data is None:
@@ -63,9 +63,6 @@ class RSS(Component):
                             try:
                                 ival = item[iitem]
                                 if isinstance(ival, (str, unicode)):
-                                    if iitem == 'link':
-                                        iitem = 'url'
-
                                     cloned.set(iitem, ival)
                                 else:
                                     log.info('Item attribute %s is not a ' \

@@ -23,7 +23,7 @@ class SolrXML(Component):
             for doc in self.receive_all('in'):
                 try:
                     data = doc.get('data')
-                    mime = doc.get('mimetype')
+                    mime = doc.get_meta('mimetype')
 
                     # if there is no data, move on to the next doc
                     if data is None:
