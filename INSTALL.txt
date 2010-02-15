@@ -8,26 +8,21 @@ Requirements:
         - Win32: http://www.stackless.com/binaries/python-2.6.2-stackless.msi
         - Linux: http://www.stackless.com/binaries/stackless-262-export.tar.bz2
 
-    If you have Python already installed, the stackless installer will replace
-    the current version if they match (you can also have multiple versions).
+    If you have Python already installed, the stackless installer might replace
+    the current version if they match but you can also have multiple versions of
+    Python installed if you build it yourself.
 
     Stackless Python is an extension of the regular Python interpreter. Any 
     existing Python code will run with any modifications. Stackless simply
     adds some extra capabilities to regaulr Python.
+    
+    For detailed installation instructions please see:
+    http://bitbucket.org/egaumer/pypes/wiki/Install_Guide
 
 To install pypesvds buildout:
 
     $ python bootstrap.py                               # run bootstrap
     $ bin/buildout                                      # run buildout
-    $ bin/paster make-config pypesvds production.ini    # create distudio ini config
-    $ bin/paster setup-app production.ini               # setup app/custom plugin env
-    $ bin/paster serve production.ini                   # start pypesvds
-
-To install pypesvds source buildout:
-
-    $ tar xzf pypesvds.tar.gz                           # unpack the download
-    $ cd pypesvds                                       # change directories 
-    $ python install.py (need stackless >= 2.6)         # run the installer
     $ bin/paster make-config pypesvds production.ini    # create distudio ini config
     $ bin/paster setup-app production.ini               # setup app/custom plugin env
     $ bin/paster serve production.ini                   # start pypesvds
