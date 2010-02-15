@@ -9,7 +9,7 @@ YAHOO.pypes.ui.toolbar.Window = function() {
 
 var submitMenu = [ 
     { text: 'Submit File', value: 'file', id: 'file_upload' }, 
-    { text: 'Submit URL', value: 'url', id: 'submit_url' }
+    /*{ text: 'Submit URL', value: 'url', id: 'submit_url' }*/
 ]; 
 
 var Toolbar = function() {
@@ -161,7 +161,7 @@ var aboutDialog = new function AboutDialog() {
         buttons: [{ text:"OK", handler:function() {this.hide();}}]
     });
     this.aboutPanel.setHeader("About");
-    this.aboutPanel.setBody("<center style=\"background-color:#CCCCCC;border:groove 1px #e7e7e7\"><img src=\"/images/PypesLogo.png\" /><br><br>Beta 1<br><a target=\"_blank\" href=\"http://www.pypes.org\">www.pypes.org</a><br></center>");
+    this.aboutPanel.setBody("<center><img src=\"/images/PypesLogoWhite.png\" /><br><br><b>Pypes 1.0.0</b><br><br>A component based data flow framework based on Stackless Python.<br><br>Copyright &copy; 2009-2010<br><a target=\"_blank\" href=\"http://www.pypes.org\">http://www.pypes.org</a><br></center>");
     this.aboutPanel.render(document.body);
     this.show = function() { this.aboutPanel.show(); };
 };
