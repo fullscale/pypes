@@ -61,6 +61,7 @@ class CSVReader(Component):
                             document.set('column%d' % (idx + 1), 
                                                     unicode(column, 'utf-8'))
 
+                        document.set_meta('column_count', idx+1)
                         self.send('out', document)
                 
                 except Exception as e:
