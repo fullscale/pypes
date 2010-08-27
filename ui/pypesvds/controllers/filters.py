@@ -2,7 +2,7 @@ import logging
 import json
 from pylons import request, response, session, tmpl_context as c
 from pylons import app_globals
-from pylons.controllers.util import abort, redirect_to
+from pylons.controllers.util import abort
 
 from pypesvds.lib.base import BaseController, render
 

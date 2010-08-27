@@ -4,7 +4,7 @@ import os
 import datetime
 from pylons import request, response, session, tmpl_context as c
 from pylons import app_globals
-from pylons.controllers.util import abort, redirect_to
+from pylons.controllers.util import abort
 from pypesvds.lib.base import BaseController, render
 from pypesvds.lib.packet import Packet
 import zlib
