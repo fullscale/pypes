@@ -25,6 +25,11 @@
   border-style: solid;
   border-color: #000000;
 }
+#toolbar #button_run button {
+  background-image: url(/images/down-arrow.png), url(/images/gloss.png);
+  background-repeat: no-repeat, repeat-x;
+  background-position: right center, left center;
+}
 #toolbar .yui-button a {
   color: #ffffff;
   font: normal 10px "Lucida Grande", Helvetica, Verdana;
