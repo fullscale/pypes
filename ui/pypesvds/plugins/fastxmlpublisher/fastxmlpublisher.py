@@ -30,14 +30,14 @@ class FastXML(Component):
         for val in vals:
             result = None
             if isinstance(val, (str, unicode)):
-                result = _escape_cdata(val)
+                result = _escape_cdata(val, 'utf-8')
             else:
                 try:
                     strval = val.__str__()
                 except:
                     pass
                 else:
-                    result = _escape_cdata(strval)
+                    result = _escape_cdata(strval, 'utf-8')
 
             if result is not None:
                 results.append(result)
