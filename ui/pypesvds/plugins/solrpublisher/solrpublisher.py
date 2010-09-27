@@ -66,6 +66,8 @@ class Solr(Component):
                 port = self.get_parameter('port')
                 if port is None:
                     raise ValueError, 'Port not set'
+                else:
+                    port = int(port)
 
                 path = self.get_parameter('path')
                 if path is None:
