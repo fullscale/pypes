@@ -24,6 +24,7 @@ def make_map():
     map.resource('project', 'project')
     map.resource('filter', 'filters')
     map.resource('doc', 'docs')
+    map.resource('text', 'text')
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')
 

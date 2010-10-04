@@ -30,7 +30,9 @@ class Packet(object):
         if doc is None:
             doc = {}
         else:
-            doc = copy.deepcopy(doc)
+            doc = copy.deepcopy(dict(
+                map(lambda (k,v): (k, v if isinstance(v, list) else [v]),
+                    doc.iteritems())))
         
         if meta is None:
             meta = {}
