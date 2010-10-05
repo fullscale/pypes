@@ -10,7 +10,6 @@ eggs
 parts
 .installed.cfg
 *.ini
-./plugins
 pypesvds.log
 data
 bin/buildout
@@ -19,3 +18,8 @@ bin/python
 core/pypes.egg-info
 ui/*.egg
 ui/pypesvds.egg-info
+etc/transactions.xml
+
+# switch to regexp syntax.
+syntax: regexp
+^plugins$
