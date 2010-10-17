@@ -1,0 +1,9 @@
+setup.py
+simplejsonadapter/__init__.py
+simplejsonadapter/simplejsonadapter.py
+simplejsonadapter.egg-info/PKG-INFO
+simplejsonadapter.egg-info/SOURCES.txt
+simplejsonadapter.egg-info/dependency_links.txt
+simplejsonadapter.egg-info/entry_points.txt
+simplejsonadapter.egg-info/paster_plugins.txt
+simplejsonadapter.egg-info/top_level.txt

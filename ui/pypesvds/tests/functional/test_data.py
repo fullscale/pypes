@@ -1,6 +1,6 @@
 from pypesvds.tests import *
 
-class TestTextController(TestController):
+class TestDataController(TestController):
 
     def test_index(self):
         response = self.app.get(url('text'))

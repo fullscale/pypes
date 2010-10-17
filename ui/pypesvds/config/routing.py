@@ -23,9 +23,64 @@ def make_map():
     map.connect('signout', '/signout', controller='index', action='signout')
     map.resource('project', 'project')
     map.resource('filter', 'filters')
-    map.resource('doc', 'docs')
-    map.resource('text', 'text')
-    map.connect('/{controller}/{action}')
-    map.connect('/{controller}/{action}/{id}')
+ 
+    # new data controller
+    map.connect('get',
+                '/data',
+                controller='data',
+                action='get',
+                conditions=dict(method=["GET"]))
+     
+    map.connect('get_route',
+                '/data/{route}',
+                controller='data',
+                action='get',
+                conditions=dict(method=["GET"]))
+    
+    map.connect('get_route_id',
+                '/data/{route}/{id}',
+                controller='data',
+                action='get',
+                conditions=dict(method=["GET"]))
+    
+    map.connect('create',
+                '/data',
+                controller='data',
+                action='create',
+                conditions=dict(method=["POST"]))
+    
+    map.connect('create_route',
+                '/data/{route}',
+                controller='data',
+                action='create',
+                conditions=dict(method=["POST"]))
+    
+    map.connect('create_route_id',
+                '/data/{route}/{id}',
+                controller='data',
+                action='create',
+                conditions=dict(method=["POST"]))
+    
+    map.connect('update_route_id',
+                '/data/{route}/{id}',
+                controller='data',
+                action='create',
+                conditions=dict(method=["PUT"]))
+    
+    map.connect('delete_route_id',
+                '/data/{route}/{id}',
+                controller='data',
+                action='delete',
+                conditions=dict(method=["DELETE"]))
+    
+    # limited support for older DEPRECATED /doc controller
+    map.connect('create_deprecated_docs',
+                '/docs',
+                controller='data',
+                action='create',
+                conditions=dict(method=["POST"]))
+    
+    #map.connect('/{controller}/{action}')
+    #map.connect('/{controller}/{action}/{id}')
 
     return map

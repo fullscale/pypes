@@ -294,16 +294,20 @@ class DataFlowGraph(object):
         return status
 
     def send(self, doc):
-        statusText = 'Unexpected Error Running Project'
+        response = {}
+        try:
+            if self.Workflow is not None:
+                self.Workflow.send(doc)
+                response['status'] = 'success'
+            else:
+                log.error('No workflow defined')
+                response['status'] = 'failure'
+                response['error'] = 'No Active Workflow Defined'
+        except:
+            response['status'] = 'failure'
+            response['error'] = 'Unexpected Error Running Project'
 
-        if self.Workflow is not None:
-            self.Workflow.send(doc)
-            statusText = 'Documented Submitted Sucessfully'
-        else:
-            log.error('No workflow defined')
-            statusText = 'No Active Workflow Defined'
-
-        return statusText
+        return response
 
     def _get_filters(self):
         self._filters.sort()
