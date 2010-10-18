@@ -46,6 +46,7 @@ class DataFlowGraph(object):
         # load plugins
         self.plugins = init_plugins()
         self.plugin_registry = {}
+        
         # load each type here...
         try:
             self._filters = self.plugins['FILTER'].keys()
@@ -161,9 +162,11 @@ class DataFlowGraph(object):
 
             if in_status is False:
                 statusText = 'Unable To Save Configuration<br><br>No Valid Adapter Specified<br>.'
+                
             # Check for valid output component
             elif out_status is False:
                 statusText = 'Unable To Save Configuration<br><br>No Valid Publisher Specified<br>.'
+                
             else:
                 # translate the current config into a usable DAG
                 result = self.translate()
@@ -171,7 +174,7 @@ class DataFlowGraph(object):
                     statusText = 'Error Translating Supplied Configuration'
                 # check the connectivity of the graph
                 elif not self.is_connected(inputs, outputs):
-                    statusText = 'Unable To Save Project<br><br>Found Broken Path Between Producer and Publisher.<br>'
+                    statusText = 'Unable To Save Project<br><br>Found Broken Path Between Adapter and Publisher.<br>'
                 else:
                     # Build the new workflow
                     try:

@@ -11,7 +11,7 @@ var jsBox = function(config, layer, ins) {
     this.nParams = this.config.inputs.length;
     this.numOuts = this.config.outputs.length;
 
-    this.createTerminals(this.config.inputs, this.config.outputs);
+    this.createTerminals(this.config.inputs, this.config.outputs, this.config.cid);
    
     /* Reposition the terminals when the jsBox is being resized */
     this.ddResize.eventResize.subscribe(function(e, args) {
@@ -53,8 +53,8 @@ YAHOO.extend(jsBox, WireIt.Container, {
     /**
      * Create (and re-create) the terminals with this.nParams input terminals
      */
-    createTerminals: function(inputs, outputs) {
-      
+    createTerminals: function(inputs, outputs, cid) {
+
    	    /* Remove all the existing terminals */
    	    this.removeAllTerminals();
 
@@ -62,14 +62,18 @@ YAHOO.extend(jsBox, WireIt.Container, {
             /* add term name here */
             var term = this.addTerminal({xtype: "WireIt.util.TerminalInput", termid:inputs[i], nMaxWires:1 });
             term.jsBox = this;
-            WireIt.sn(term.el, null, {position: "absolute", top: "-15px"});
+			var xid = cid.toString() + "in" + i.toString()
+            WireIt.sn(term.el, {id:xid, title:inputs[i]}, {position: "absolute", top: "-15px"});
+			new YAHOO.widget.Tooltip(cid+inputs[i], {context:xid, zIndex:50});
         }
 
         for(var i = 0; i < outputs.length; i++) {
             /* add term name here */
    	        var term = this.addTerminal({xtype: "WireIt.util.TerminalOutput", termid:outputs[i], nMaxWires:1});      
             term.jsBox = this;
-            WireIt.sn(term.el, null, {position: "absolute", bottom: "-15px"});
+			var xid = cid.toString() + "out" + i.toString()
+            WireIt.sn(term.el, {id:xid, title:outputs[i]}, {position: "absolute", bottom: "-15px"});
+			new YAHOO.widget.Tooltip(cid+outputs[i], {context:xid, zIndex:50});
         }
 
         this.positionTerminals();
@@ -227,7 +231,7 @@ YAHOO.extend(jsBox, WireIt.Container, {
             },
 
             failure: function(oResponse) {
-            },               
+            }            
         };
         YAHOO.util.Connect.asyncRequest('GET', 'filters/' + component_id, componentConfigHandler);
     },
@@ -261,7 +265,7 @@ var onSuccess = function(o) {
      */
 	try {
 		o.argument.params = YAHOO.lang.JSON.parse(o.responseText);
-	} catch(error) { /* we can safely swalow the error */ }
+	} catch(error) { /* we can safely swallow the error */ }
 }
 var onFailure = function(o) { alert("Your submission failed. Status: " + o.status); } 
 
@@ -339,7 +343,7 @@ jsBox.register = function() {
          regPanel.setHeader("Register Workflow"); 
          regPanel.render(document.body);
          regPanel.show();
-        },
+        }
     };
 	/* send the configuration to the server */
     YAHOO.util.Connect.asyncRequest('POST', '/project', registerHandler, postData);
