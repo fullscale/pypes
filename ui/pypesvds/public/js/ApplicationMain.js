@@ -57,6 +57,9 @@ YAHOO.extend(jsBox, WireIt.Container, {
 
    	    /* Remove all the existing terminals */
    	    this.removeAllTerminals();
+		
+		/* port ids for tooltip object */
+		var ports = new Array();
 
         for(var i = 0 ; i < inputs.length ; i++) {
             /* add term name here */
@@ -64,18 +67,25 @@ YAHOO.extend(jsBox, WireIt.Container, {
             term.jsBox = this;
 			var xid = cid.toString() + "in" + i.toString()
             WireIt.sn(term.el, {id:xid, title:inputs[i]}, {position: "absolute", top: "-15px"});
-			new YAHOO.widget.Tooltip(cid+inputs[i], {context:xid, zIndex:50});
+			ports.push(xid);
         }
-
+		
         for(var i = 0; i < outputs.length; i++) {
             /* add term name here */
    	        var term = this.addTerminal({xtype: "WireIt.util.TerminalOutput", termid:outputs[i], nMaxWires:1});      
             term.jsBox = this;
 			var xid = cid.toString() + "out" + i.toString()
             WireIt.sn(term.el, {id:xid, title:outputs[i]}, {position: "absolute", bottom: "-15px"});
-			new YAHOO.widget.Tooltip(cid+outputs[i], {context:xid, zIndex:50});
+			ports.push(xid);
         }
-
+		
+		/* create the tooltip object */
+		new YAHOO.widget.Tooltip("ttPorts", {
+			context:ports,
+			effect:{effect:YAHOO.widget.ContainerEffect.FADE,duration:0.20},
+			zIndex:50
+		});
+		
         this.positionTerminals();
 
         /* Declare the new terminals to the drag'n drop handler 

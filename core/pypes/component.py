@@ -290,12 +290,12 @@ class Component(object):
     def get_in_ports(self):
         """Returns a list of current inputs ports for this component.
         """
-        return self._inputs.keys()
+        return sorted(self._inputs.keys())
 
     def get_out_ports(self):
         """Returns a list of current output ports for this component.
         """
-        return self._outputs.keys()
+        return sorted(self._outputs.keys())
 
     def get_parameters(self):
         """Returns a dict of parameters used by this component.

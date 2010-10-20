@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name = 'pypesvds',
-    version = '0.1.0',
+    version = '1.1.0',
     description = 'Pypes Visual Design Studio',
     long_description = """
 The pypes Visual Design Studio is a WSGI application that provides an HTTP 
@@ -94,9 +94,9 @@ Changelog
         "Pylons>=0.9.7",
         "pypes",
         "py_dom_xpath",
-        "authkit"
+        "authkit",
+        "PasteScript>=1.6.3"
     ],
-    setup_requires = ["PasteScript>=1.6.3"],
     packages = find_packages(exclude=['ez_setup']),
     include_package_data = True,
     test_suite = 'nose.collector',
