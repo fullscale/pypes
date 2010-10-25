@@ -1,4 +1,3 @@
-import json
 from webob.exc import status_map 
     
 def abort(status_code=None, detail="", headers=None, comment=None):
