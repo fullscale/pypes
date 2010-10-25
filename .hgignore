@@ -19,6 +19,8 @@ core/pypes.egg-info
 ui/*.egg
 ui/pypesvds.egg-info
 etc/transactions.xml
+nbproject/*
+
 
 # switch to regexp syntax.
 syntax: regexp
