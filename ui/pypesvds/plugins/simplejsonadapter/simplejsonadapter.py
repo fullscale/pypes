@@ -22,7 +22,7 @@ class SimpleJSON(Component):
 
                     if data is not None:
                         # this adapter only handles JSON
-                        if mime != 'application/json':
+                        if not mime.startswith('application/json'):
                             log.warn('Bad Content-Type, expecting application/json')
                             log.warn('Ignorning doc: %s' % doc.get('id'))
                             continue
@@ -35,7 +35,7 @@ class SimpleJSON(Component):
 
                 except Exception as e:
                     log.error('Component Failed: %s' % self.__class__.__name__)
-                    log.error('Reason: %s' % str(e))                    
+                    log.error('Reason: %s' % str(e))
                     log.error(traceback.print_exc())
 
                 self.send('out', doc)
