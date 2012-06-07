@@ -82,7 +82,7 @@ class Packet(object):
 
         if attr in self._doc:
             value = self._doc[attr]
-            if len(value) == 1:
+            if len(value) == 1 and self.get_meta('multi', attr) is False:
                 value = value[0]
             else:
                 value = value[:]
@@ -109,8 +109,10 @@ class Packet(object):
             
         if isinstance(value, list) and multi:
             self._doc[attr] = value[:]
+            self.set_meta('multi', multi, attr)
         else:
             self._doc[attr] = [value]
+            self.set_meta('multi', multi, attr)
             
         if not keep_meta and attr in self._attr_meta:
             del self._attr_meta[attr]
@@ -131,7 +133,7 @@ class Packet(object):
         if attr in self._doc:
             LOG.debug('Attribute %s exists, not adding!' % attr)
         else:
-            self.set(attr, value, multi, False)
+            self.set(attr, value, multi, True)
 
     def append(self, attr, value, extend=False):
         """Appends a value to an attribute. If the attribute is not already
@@ -366,7 +368,9 @@ class Packet(object):
         
         is_multi = False
         if attr in self._doc:
-            is_multi = (len(self._doc[attr]) > 1)
+            is_multi = self.get_meta('multi', attr)
+        #if attr in self._doc:
+        #    is_multi = (len(self._doc[attr]) > 1)
             
         return is_multi
 

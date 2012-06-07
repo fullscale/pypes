@@ -20,8 +20,10 @@ ui/*.egg
 ui/pypesvds.egg-info
 etc/transactions.xml
 nbproject/*
-
+sink
+/plugins
+etc/trnews.xml
 
 # switch to regexp syntax.
 syntax: regexp
-^plugins$
+^plugins

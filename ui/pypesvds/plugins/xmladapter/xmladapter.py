@@ -76,7 +76,13 @@ class XML(Component):
 
         roots = xml.findall(self._docroot)
         for root in roots:
-            newdoc = doc.clone(metas=False)      
+            newdoc = doc.clone(metas=True)
+
+            try:
+                newdoc.set('id', root.get('guid')) 
+            except: 
+                log.warn('Missing id')
+
             for mapping in self._mappings:
 
                 # determine path
