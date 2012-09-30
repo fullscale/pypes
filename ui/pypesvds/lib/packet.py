@@ -82,7 +82,7 @@ class Packet(object):
 
         if attr in self._doc:
             value = self._doc[attr]
-            if len(value) == 1 and self.get_meta('multi', attr) is False:
+            if len(value) == 1 and self.get_meta('multi', attr, False) is False:
                 value = value[0]
             else:
                 value = value[:]
@@ -366,11 +366,7 @@ class Packet(object):
         @return: True if the attribute is multivalued, False otherwise
         """
         
-        is_multi = False
-        if attr in self._doc:
-            is_multi = self.get_meta('multi', attr)
-        #if attr in self._doc:
-        #    is_multi = (len(self._doc[attr]) > 1)
+        is_multi = self.get_meta('multi', attr, False)
             
         return is_multi
 
