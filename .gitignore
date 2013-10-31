@@ -23,6 +23,10 @@ nbproject/*
 sink
 /plugins
 etc/trnews.xml
+ui/dist
+ui/build
+core/dist
+core/build
 
 # switch to regexp syntax.
 syntax: regexp
