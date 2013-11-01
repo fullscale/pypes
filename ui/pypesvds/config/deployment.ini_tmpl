@@ -25,6 +25,7 @@ cache_dir = %(here)s/data
 beaker.session.key = pypesvds
 beaker.session.secret = ${app_instance_secret}
 app_instance_uuid = ${app_instance_uuid}
+pipeline_json_file = projects/default.txt
 
 # WARNING: *THE LINE BELOW MUST BE UNCOMMENTED ON A PRODUCTION ENVIRONMENT*
 # Debug mode will enable the interactive debugging tool, allowing ANYONE to

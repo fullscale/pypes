@@ -94,13 +94,15 @@ class DataFlowGraph(object):
         fp = None
         
         try:
-            fp = open('projects/default.txt', 'r')
+            pipeline_json_file = config['pipeline_json_file']
+            fp = open(pipeline_json_file, 'r')
             jsconfig = fp.read()
-            config = json.loads(jsconfig)
+            pipeline_config = json.loads(jsconfig)
         except:
-            pass
+            log.error('Failed to read config %s' % pipeline_json_file)
+            log.debug('File Dump:', jsconfig)
         else:
-            self.loadConfig(config)
+            self.loadConfig(pipeline_config)
         finally:
             if fp is not None:
                 fp.close()
@@ -199,7 +201,7 @@ class DataFlowGraph(object):
                         # Save config here...
                         fp = None
                         try:
-                            fp = open('projects/default.txt', 'w')
+                            fp = open(config['pipeline_json_file'], 'w')
                             fp.write(jsconfig)
                         except:
                             log.error('Unable to save configuration')
@@ -281,7 +283,9 @@ class DataFlowGraph(object):
                 target_key = self.Config['containers'][target_container_id]['cid']
                 source = self._registered_instances[source_key]
                 target = self._registered_instances[target_key]
-            except:
+            except Exception as e:
+                log.error('Could not translate config')
+                traceback.print_exc()
                 status = False
             else:
                 if G.has_key(source):
