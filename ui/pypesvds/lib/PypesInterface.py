@@ -154,7 +154,7 @@ class DataFlowGraph(object):
 
         # set the new updated config from the UI
         try:
-            self._config = json.loads(jsconfig)
+            self._config = jsconfig
         except:
             statusText = 'This Project Configuration is Bad'
         else:
@@ -202,7 +202,7 @@ class DataFlowGraph(object):
                         fp = None
                         try:
                             fp = open(config['pipeline_json_file'], 'w')
-                            fp.write(jsconfig)
+                            fp.write(json.dumps(jsconfig))
                         except:
                             log.error('Unable to save configuration')
                         else:
@@ -367,8 +367,8 @@ class DataFlowGraph(object):
     OutputAdapters = property(_get_output_adapters)
     Operators = property(_get_operators)
 
-    def loadConfig(self, config):
-        for mod in config['containers']:
+    def loadConfig(self, jsconfig):
+        for mod in jsconfig['containers']:
             this_mod = mod['filterName']
             id = self.newInstance(this_mod)
             mod['cid'] = id
@@ -378,5 +378,5 @@ class DataFlowGraph(object):
             except:
                 pass
 
-        self.update(json.dumps(config))
+        self.update(jsconfig)
 
