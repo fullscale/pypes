@@ -35,7 +35,7 @@ class ProjectController(BaseController):
             # need toinvestigate further...
             return render('/pypesvds.mako')
         else:
-            return app_globals.dfg.update(config)
+            return app_globals.dfg.loadConfig(json.loads(config))
 
     def new(self, format='html'):
         """GET /project/new: Form to create a new item"""
