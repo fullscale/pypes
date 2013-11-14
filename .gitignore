@@ -4,7 +4,6 @@ syntax: glob
 *.pyo
 .pydevproject
 .project
-projects
 develop-eggs
 eggs
 parts
