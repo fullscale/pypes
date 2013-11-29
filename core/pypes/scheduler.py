@@ -14,7 +14,7 @@ import sys
 import traceback
 
 def sched(ch, graph):
-    """Sits in an infinite loop waiting on the channel to recieve data.
+    """Sits in an infinite loop waiting on the channel to receive data.
 
     The procedure prolog takes care of sorting the
     input graph into a dependency list and initializing
