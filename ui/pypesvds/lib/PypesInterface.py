@@ -95,8 +95,12 @@ class DataFlowGraph(object):
         
         try:
             pipeline_json_file = config['pipeline_json_file']
-            fp = open(pipeline_json_file, 'r')
-            jsconfig = fp.read()
+            try:
+                fp = open(pipeline_json_file, 'r')
+                jsconfig = fp.read()
+            except IOError:
+                log.error('File %s not found, starting with an empty project' % pipeline_json_file)
+                jsconfig = '{"containers":[],"wires":[]}'
             pipeline_config = json.loads(jsconfig)
         except:
             log.error('Failed to read config %s' % pipeline_json_file)

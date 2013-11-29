@@ -26,6 +26,9 @@ ui/dist
 ui/build
 core/dist
 core/build
+projects
+paster.log
+paster.pid
 
 # switch to regexp syntax.
 syntax: regexp
