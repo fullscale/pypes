@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name="pypes",
-  version = '1.1.0',
+  version = '1.2',
   description = 'A Flow-Based programming framework',
   long_description = """
 Pypes provides a framework for building component oriented architectures. It
