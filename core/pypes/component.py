@@ -308,7 +308,7 @@ class Component(object):
         @param parameters: The parameters being set on this component
         @type parameters: dict
         """
-        self._paramaters = parameters
+        self._parameters = parameters
 
     def get_parameter(self, name):
         """Returns a specific parameter for this component.
