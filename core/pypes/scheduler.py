@@ -60,7 +60,7 @@ def connect_graph_components(graph):
                            input port {0} {1}'''.format(e, edges[e][1]))
 
                 e.connect_input(edges[e][1], pipe)
-    return nodes, pipes
+    return nodes
 
 
 def sched(ch, graph):
@@ -79,15 +79,14 @@ def sched(ch, graph):
     # Added so that incoming data is fed to every input adapter
     # should check if in exists and create it if it doesn't
     # because a user could remove the input port by accident
-    nodes, _ = connect_graph_components(graph)
-    tasks = []
+    nodes = connect_graph_components(graph)
+    tasks = schedule_recursively(nodes)
     inputEdges = []
-    for n in nodes:
-        # start this microthread
-        tasks.append(stackless.tasklet(n.run)())
-        if n.get_type() == 'ADAPTER':
+    # Connect all the adapters to the input
+    for node in nodes:
+        if node.get_type() == 'ADAPTER':
             ie = Pype()
-            n.connect_input('in', ie)
+            node.connect_input('in', ie)
             inputEdges.append(ie)
 
     while True:
@@ -98,3 +97,18 @@ def sched(ch, graph):
             tasks[0].run()
         except:
             traceback.print_exc()
+
+
+def schedule_recursively(nodes):
+    """Correctly schedule higher order components with a recursive function.
+
+    """
+    tasks = []
+    for node in nodes:
+        if not hasattr(node, "subnodes"):
+            """Simple component, simply schedule it."""
+            tasks.append(stackless.tasklet(node.run)())
+        else:
+            """Higher order component, go one level deeper."""
+            tasks.extend(schedule_recursively(node.subnodes))
+    return tasks

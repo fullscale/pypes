@@ -367,10 +367,9 @@ class HigherOrderComponent(Component):
 
         """
         Component.__init__(self)
-        self.nodes, self.pipes = connect_graph_components(graph)
-        self._inputs = self.nodes[0]._inputs  # pylint: disable=W0212
-        self._outputs = self.nodes[0]._outputs  # pylint: disable=W0212
+        self.subnodes = connect_graph_components(graph)
+        self._inputs = self.subnodes[0]._inputs  # pylint: disable=W0212
+        self._outputs = self.subnodes[-1]._outputs  # pylint: disable=W0212
 
     def run(self):
-        for n in self.nodes:
-            stackless.tasklet(n.run)()
+        pass
