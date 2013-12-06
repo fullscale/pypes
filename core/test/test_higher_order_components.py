@@ -73,6 +73,6 @@ if __name__ == '__main__':
 
     from pypes.pipeline import Dataflow
     pipeline = Dataflow(network)
-    for number in range(1, 2):
+    for number in range(1, 5):
         pipeline.send(number)
     pipeline.close()
