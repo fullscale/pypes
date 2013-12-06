@@ -32,6 +32,7 @@ def connect_graph_components(graph):
     """
     edgeList = get_pairlist(graph)
     nodes = topsort(edgeList)
+    pipes = []
 
     for n in nodes:
         try:
@@ -42,14 +43,15 @@ def connect_graph_components(graph):
         else:
             # for each output
             for e in edges:
-                e1 = Pype()
+                pipe = Pype()
+                pipes.append(pipe)
                 # does the output port exist?
                 if not n.has_port(edges[e][0]):
                     raise ComponentPortError(
                         '''Trying to connect undefined
                            output port {0} {1}'''.format(n, edges[e][0]))
                 else:
-                    n.connect_output(edges[e][0], e1)
+                    n.connect_output(edges[e][0], pipe)
 
                 # does the input port exist?
                 if not e.has_port(edges[e][1]):
@@ -57,8 +59,8 @@ def connect_graph_components(graph):
                         '''Trying to connect undefined
                            input port {0} {1}'''.format(e, edges[e][1]))
 
-                e.connect_input(edges[e][1], e1)
-    return nodes
+                e.connect_input(edges[e][1], pipe)
+    return nodes, pipes
 
 
 def sched(ch, graph):
@@ -77,7 +79,7 @@ def sched(ch, graph):
     # Added so that incoming data is fed to every input adapter
     # should check if in exists and create it if it doesn't
     # because a user could remove the input port by accident
-    nodes = connect_graph_components(graph)
+    nodes, _ = connect_graph_components(graph)
     tasks = []
     inputEdges = []
     for n in nodes:
