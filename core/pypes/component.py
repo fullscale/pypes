@@ -1,11 +1,13 @@
 """Provides a common component interface.
 
-Filters should subclass this module and impliment 
+Filters should subclass this module and impliment
 the run() method.
 
 """
 
-import stackless
+import stackless  # pylint: disable=F0401
+from pypes.scheduler import connect_graph_components
+
 
 class Component(object):
     """Provides methods common to all filters.
@@ -24,7 +26,7 @@ class Component(object):
 
         Provides default input of 'in' and output of 'out'.
         """
-        self._inputs  = {'in' : [None, 'Default input port'] }
+        self._inputs = {'in': [None, 'Default input port']}
         self._outputs = {'out': [None, 'Default output port']}
         self._parameters = {}
 
@@ -37,7 +39,7 @@ class Component(object):
         raise NotImplementedError
 
     def yield_ctrl(self):
-        """Causes this tasklet to relinquish control of the 
+        """Causes this tasklet to relinquish control of the
         CPU to allow another tasklet to run. This tasklet is
         re-scheduled to run again.
 
@@ -49,27 +51,28 @@ class Component(object):
         """Adds a new input port to this component.
 
         This is most typically called from the object
-        subclassing this component. Adding a new port means 
-        you are adding some filter logic that utilizes 
+        subclassing this component. Adding a new port means
+        you are adding some filter logic that utilizes
         the new port in some way.
 
         @param name: The string used to represent this port
         @type name: String
-        
+
         @keyword desc: An optional description of what this port is used for.
-        @note: Although desc is optional, it is considered good practice 
+        @note: Although desc is optional, it is considered good practice
                to provide a brief description.
 
         @return: Nothing
         """
         status = False
-        if not self._inputs.has_key(name):
+        if not name in self._inputs:
             self._inputs[name] = [None, desc]
             status = True
         return status
-    
+
     def remove_input(self, name):
-        """Removes the given port from this components list of available input ports.
+        """Removes the given port from this components
+        list of available input ports.
 
         @param name: The string used to represent this port
         @type name: String
@@ -77,7 +80,7 @@ class Component(object):
         @return: Nothing
         """
         status = False
-        if self._inputs.has_key(name):
+        if name in self._inputs:
             self._inputs.pop(name)
             status = True
         return status
@@ -86,27 +89,28 @@ class Component(object):
         """Adds a new output port to this component.
 
         This is most typically called from the object
-        subclassing this component. Adding a new port means 
-        you are adding some filter logic that utilizes 
+        subclassing this component. Adding a new port means
+        you are adding some filter logic that utilizes
         the new port in some way.
 
         @param name: The string used to represent this port
         @type name: String
-        
+
         @keyword desc: An optional description of what this port is used for.
-        @note: Although desc is optional, it is considered good practice 
+        @note: Although desc is optional, it is considered good practice
                to provide a brief description.
 
         @return: Nothing
         """
         status = False
-        if not self._outputs.has_key(name):
+        if not name in self._outputs:
             self._outputs[name] = [None, desc]
             status = True
         return status
-    
+
     def remove_output(self, name):
-        """Removes the given port from this components list of available output ports.
+        """Removes the given port from this
+        components list of available output ports.
 
         @param name: The string used to represent this port
         @type name: String
@@ -114,13 +118,14 @@ class Component(object):
         @return: Nothing
         """
         status = False
-        if self._outputs.has_key(name):
+        if name in self._outputs:
             self._outputs.pop(name)
             status = True
         return status
 
     def connect_input(self, name, edge):
-        """Connects a edge (pype) to the specified input port of this component.
+        """Connects a edge (pype) to the specified
+        input port of this component.
 
         This only represents half of an actual connection between two nodes.
         Typically, one side of the edge is connected to the output of one
@@ -130,7 +135,7 @@ class Component(object):
 
         @param name: The string used to represent this port
         @type name: String
-        
+
         @param edge: The edge you would like to connect
         @type edge: L{Pype}
 
@@ -147,7 +152,8 @@ class Component(object):
             self._inputs[name] = item
 
     def connect_output(self, name, edge):
-        """Connects a edge (pype) to the specified output port of this component.
+        """Connects a edge (pype) to the
+        specified output port of this component.
 
         This only represents half of an actual connection between two nodes.
         Typically, one side of the edge is connected to the output of one
@@ -157,7 +163,7 @@ class Component(object):
 
         @param name: The string used to represent this port
         @type name: String
-        
+
         @param edge: The edge you would like to connect
         @type edge: L{Pype}
 
@@ -184,10 +190,10 @@ class Component(object):
         in_connected = False
         out_connected = False
 
-        if self._inputs.has_key(name):
+        if name in self._inputs:
             in_connected = self._inputs[name][0]
 
-        if self._outputs.has_key(name):
+        if name in self._outputs:
             out_connected = self._outputs[name][0]
 
         connected = in_connected or out_connected
@@ -234,7 +240,6 @@ class Component(object):
                 item = self._outputs[port]
                 item[1] = desc
                 self._outputs[port] = item
-            
 
     def has_port(self, port):
         """Returns True if the component contains this port, False otherwise.
@@ -243,7 +248,7 @@ class Component(object):
         @type port: String
         @return: Boolean
         """
-        return self._inputs.has_key(port) or self._outputs.has_key(port)
+        return port in self._inputs or port in self._outputs
 
     def receive(self, port):
         """Tries recieving data on the specified port.
@@ -266,9 +271,9 @@ class Component(object):
         @type port: String
         @return: An iterator over this ports available data
         """
-        for item in range(self._inputs[port][0].size):
+        for _ in range(self._inputs[port][0].size):
             yield self._inputs[port][0].recv()
-    
+
     def send(self, port, data):
         """Sends data on specified port.
 
@@ -331,8 +336,8 @@ class Component(object):
         @param parameter: The value being set for this parameter
         @type parameter: String
         """
-        if options is None and self._parameters.has_key(name):
-            pset = self._parameters[name][0] = parameter
+        if options is None and name in self._parameters:
+            self._parameters[name][0] = parameter
         else:
             if options is None or not isinstance(options, list):
                 options = []
@@ -342,4 +347,30 @@ class Component(object):
                 pass
 
     def get_type(self):
+        """Get the metatype of the component."""
         return self.__metatype__
+
+
+class HigherOrderComponent(Component):
+
+    """Reuse a network of component as if it was a simple component.
+
+    """
+
+    __metatype__ = None
+
+    def __init__(self, graph):
+        """Initialize the Component from the graph description
+
+        @param graph: The graph representing the work flow
+        @type graph: Python dict organized as a graph
+
+        """
+        Component.__init__(self)
+        self.nodes = connect_graph_components(graph)
+        self._inputs = self.nodes[0]._inputs  # pylint: disable=W0212
+        self._outputs = self.nodes[0]._outputs  # pylint: disable=W0212
+
+    def run(self):
+        for n in self.nodes:
+            stackless.tasklet(n.run)()

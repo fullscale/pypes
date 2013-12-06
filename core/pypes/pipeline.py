@@ -52,7 +52,7 @@ class Instance:
         method.
 
         The actual pipeline must be created here so that it
-        lives inside a separate process than teh caller. This
+        lives inside a separate process than the caller. This
         is vital to how the scheduling works in stackless Python.
 
         @see: L{Dataflow.add_process}
