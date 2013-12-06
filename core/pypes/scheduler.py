@@ -78,11 +78,10 @@ def sched(ch, graph):
     # should check if in exists and create it if it doesn't
     # because a user could remove the input port by accident
     nodes = connect_graph_components(graph)
-    tasks = []
+    tasks = schedule_recursively(nodes)
     inputEdges = []
+    # Connect all the adapters to the input
     for n in nodes:
-        # start this microthread
-        tasks.append(stackless.tasklet(n.run)())
         if n.get_type() == 'ADAPTER':
             ie = Pype()
             n.connect_input('in', ie)
@@ -96,3 +95,18 @@ def sched(ch, graph):
             tasks[0].run()
         except:
             traceback.print_exc()
+
+
+def schedule_recursively(nodes):
+    """Correctly schedule higher order components with a recursive function.
+
+    """
+    tasks = []
+    for node in nodes:
+        if not hasattr(node, "subnodes"):
+            """Simple component, simply schedule it."""
+            tasks.append(stackless.tasklet(node.run)())
+        else:
+            """Higher order component, go one level deeper."""
+            tasks.extend(schedule_recursively(node.subnodes))
+    return tasks
