@@ -1,7 +1,5 @@
 """Template for a new pipeline component."""
 
-from __future__ import division, print_function
-
 import logging
 
 import pypes.component
