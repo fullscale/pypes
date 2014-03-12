@@ -19,7 +19,7 @@ import stackless
 import traceback
 from multiprocessing import Process, Pipe, Queue
 
-from scheduler import sched
+from .scheduler import sched
 
 def pipeline(graph):
     """Initializes the main scheduling tasklet.
@@ -85,7 +85,7 @@ class Instance:
             try:
                 pipe.send(data)
             except:
-                print 'OOPS! - Component Failure'
+                print('OOPS! - Component Failure')
                 traceback.print_exc()
 
     def send(self):

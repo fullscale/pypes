@@ -26,7 +26,7 @@ class DeleteField(Component):
             try:
                 fields = self.get_parameter('fields')
                 if fields is None:
-                    raise ValueError, 'No input fields set'
+                    raise ValueError('No input fields set')
 
                 # convert to a list of field names
                 fields = [f.strip() for f in fields.split(',')]

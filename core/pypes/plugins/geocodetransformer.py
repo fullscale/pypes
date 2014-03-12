@@ -1,5 +1,5 @@
 import json
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import logging
 #import traceback
 
@@ -29,7 +29,7 @@ class GeoCode(Component):
             try:
                 addrfield = self.get_parameter('address_field')
                 if addrfield is None:
-                    raise ValueError, 'Address field not defined'
+                    raise ValueError('Address field not defined')
 
             except Exception as e:
                 log.error('Component Failed: %s' % self.__class__.__name__)
@@ -60,7 +60,7 @@ class GeoCode(Component):
                         for zipcode in zipcodes:
                             response = None
                             try:
-                                response = urllib2.urlopen( \
+                                response = urllib.request.urlopen( \
                                     'http://ws.geonames.org/postalCodeLookup' \
                                     'JSON?postalcode=%s&country=US&maxRows=1' \
                                                         % zipcode, timeout=2)

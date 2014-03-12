@@ -33,11 +33,11 @@ class Email(Component):
             try:
                 fields = self.get_parameter('fields')
                 if fields is None:
-                    raise ValueError, 'Fields not set'
+                    raise ValueError('Fields not set')
 
                 destination = self.get_parameter('destination')                    
                 if destination is None:
-                    raise ValueError, 'Destination not set'
+                    raise ValueError('Destination not set')
 
                 # convert to a list of field names
                 fields = [f.strip() for f in fields.split(',')]
@@ -64,10 +64,10 @@ class Email(Component):
                         # search all string objects in a multivalued field
                         if doc.is_multivalued(field):
                             for val in data:
-                                if isinstance(val, (str, unicode)):
+                                if isinstance(val, str):
                                     emails.update(self._reobj.findall(val))
                         else:
-                            if isinstance(data, (str, unicode)):
+                            if isinstance(data, str):
                                 emails.update(self._reobj.findall(data))
                 
                     # add all emails to destination field

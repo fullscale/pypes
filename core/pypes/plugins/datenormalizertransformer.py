@@ -48,15 +48,15 @@ class DateNormalizer(Component):
             try:
                 fields = self.get_parameter('fields')
                 if fields is None:
-                    raise ValueError, 'Input fields not defined'
+                    raise ValueError('Input fields not defined')
 
                 formats = self.get_parameter('in_formats')
                 if formats is None:
-                    raise ValueError, 'Input formats not defined'
+                    raise ValueError('Input formats not defined')
 
                 outfmt = self.get_parameter('out_format')
                 if outfmt is None:
-                    raise ValueError, 'Output format not set'
+                    raise ValueError('Output format not set')
 
                 # split the fields and formats into a list
                 fields = [f.strip() for f in fields.split(',')]

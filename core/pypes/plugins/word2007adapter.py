@@ -1,7 +1,7 @@
 import zipfile
 import logging
 #import traceback
-import cStringIO
+import io
 from xml.dom.minidom import parseString
 
 from pypes.component import Component
@@ -17,7 +17,7 @@ class Word2007(Component):
         log.info('Component Initialized: %s' % self.__class__.__name__)
 
     def _unzip(self, zipdata):
-        buf = cStringIO.StringIO()
+        buf = io.StringIO()
         buf.write(zipdata)
         unzipped = zipfile.ZipFile(buf)
         try:
@@ -108,7 +108,7 @@ class Word2007(Component):
                         doc.set('body', body)
 
                     # try to extract some properties
-                    for key, val in self._extract_props(props).items():
+                    for key, val in list(self._extract_props(props).items()):
                         doc.set(key, val)
 
                     # delete data since we are an adapter

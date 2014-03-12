@@ -26,11 +26,11 @@ class SetField(Component):
             try:
                 field = self.get_parameter('field')
                 if field is None:
-                    raise ValueError, 'Field not defined'
+                    raise ValueError('Field not defined')
 
                 values = self.get_parameter('values')
                 if values is None:
-                    raise ValueError, 'Values not set'
+                    raise ValueError('Values not set')
 
                 # create a list of values
                 values = [v for v in values.split(';') if v]

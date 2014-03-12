@@ -2,7 +2,7 @@ import csv
 import codecs
 import logging
 #import traceback
-import cStringIO
+import io
 
 from pypes.component import Component
 
@@ -28,9 +28,9 @@ class CSVWriter(Component):
         log.info('Component Initialized: %s' % self.__class__.__name__)
 
     def _join(self, data, sep=None):
-        result = u''    
+        result = ''    
         if sep is None:
-            if isinstance(data, (str, unicode)):
+            if isinstance(data, str):
                 result = data.decode('utf-8', 'ignore')
             else:
                 # if we don't have a string object, see if it has a str method
@@ -42,14 +42,14 @@ class CSVWriter(Component):
             # we have a sequence type, try to convert each peice to a string
             parts = []
             for part in data:
-                if isinstance(part, (str, unicode)):
+                if isinstance(part, str):
                     parts.append(part.decode('utf-8', 'ignore'))
                 else:
                     # not a string object, see if it has a str method
                     try:
                         parts.append(part.__str__().decode('utf-8', 'ignore'))
                     except:
-                        parts.append(u'')
+                        parts.append('')
 
             # join the parts, we don't need to worry about the sep being
             # a unicode string since python will take care of that for us
@@ -66,15 +66,15 @@ class CSVWriter(Component):
             try:
                 outfile = self.get_parameter('outfile')
                 if outfile is None:
-                    raise ValueError, 'Outfile is not set'
+                    raise ValueError('Outfile is not set')
                 
                 fields = self.get_parameter('fields')
                 if fields is None:
-                    raise ValueError, 'Fields is not set'
+                    raise ValueError('Fields is not set')
 
                 sep = self.get_parameter('multi_separator')
                 if sep is None:
-                    raise ValueError, 'Multivalue separator not set'
+                    raise ValueError('Multivalue separator not set')
 
                 # convert to a list of field names
                 if fields not in ('_all_', '_originals_'):
@@ -128,7 +128,7 @@ class CSVWriter(Component):
                                 row.append(colval)
                             else:
                                 # add empty unicode string
-                                row.append(u'')
+                                row.append('')
 
                         # if our row has a value, write it to the csv
                         if row:       
@@ -155,7 +155,7 @@ class UnicodeCSVWriter:
 
     def __init__(self, f, dialect=csv.excel, encoding='utf-8', **kwds):
         # redirect output to a queue
-        self._queue = cStringIO.StringIO()
+        self._queue = io.StringIO()
         self._writer = csv.writer(self._queue, dialect=dialect, **kwds)
         self._stream = f
         self._encoder = codecs.getincrementalencoder(encoding)()

@@ -59,10 +59,10 @@ class SolrXML(Component):
                             fieldval = sfield.text
 
                             if fieldname is not None:
-                                if not isinstance(fieldname, unicode):
+                                if not isinstance(fieldname, str):
                                     fieldname = fieldname.decode('utf-8')
 
-                                if not isinstance(fieldval, unicode):
+                                if not isinstance(fieldval, str):
                                     fieldval = fieldval.decode('utf-8')
 
                                 packet.append(fieldname, fieldval)

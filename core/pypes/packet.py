@@ -31,8 +31,7 @@ class Packet(object):
             doc = {}
         else:
             doc = copy.deepcopy(dict(
-                map(lambda (k,v): (k, v if isinstance(v, list) else [v]),
-                    doc.iteritems())))
+                [(k_v[0], k_v[1] if isinstance(k_v[1], list) else [k_v[1]]) for k_v in iter(doc.items())]))
         
         if meta is None:
             meta = {}
@@ -56,7 +55,7 @@ class Packet(object):
         """
         sorted_fields = [(k, self._doc[k]) for k in sorted(self._doc.keys())]
         printer = pprint.PrettyPrinter(indent=4)
-        print 'Attributes:'
+        print('Attributes:')
         printer.pprint(sorted_fields)
         
         if meta:
@@ -64,9 +63,9 @@ class Packet(object):
                             for k in sorted(self._meta.keys())]
             sorted_attr_meta = [(k, self._attr_meta[k]) \
                                     for k in sorted(self._attr_meta.keys())]
-            print 'Packet Meta'
+            print('Packet Meta')
             printer.pprint(sorted_meta)
-            print 'Attribute Meta'
+            print('Attribute Meta')
             printer.pprint(sorted_attr_meta)
 
     def get(self, attr, default=None):
@@ -229,7 +228,7 @@ class Packet(object):
         @return: True if the attribute exists, False otherwise
         """
         
-        return self._doc.has_key(attr)
+        return attr in self._doc
 
     def get_attributes(self):
         """Returns the document as a dictionary.
@@ -879,9 +878,9 @@ class PacketUnitTest(unittest.TestCase):
         self.doc.set_meta('pm1', 1)
         self.doc.set_meta('am1', 1, 'a')
         
-        print
+        print()
         self.doc.pprint()
-        print
+        print()
         self.doc.pprint(meta=True)
         
 

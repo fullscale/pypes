@@ -20,7 +20,7 @@ class DropDocument(Component):
 
     def _check(self, val, dropvals):
         drop = False    
-        if isinstance(val, (str, unicode)):
+        if isinstance(val, str):
             if val.strip() in dropvals:
                 drop = True
         else:
@@ -42,11 +42,11 @@ class DropDocument(Component):
             try:
                 fields = self.get_parameter('fields')
                 if fields is None:
-                    raise ValueError, 'No input fields set'
+                    raise ValueError('No input fields set')
 
                 dropvals = self.get_parameter('dropvalues')
                 if dropvals is None:
-                    raise ValueError, 'No drop values defined'
+                    raise ValueError('No drop values defined')
 
                 # split into a list of fields
                 fields = [f.strip() for f in fields.split(',')]

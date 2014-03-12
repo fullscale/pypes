@@ -29,7 +29,7 @@ class FastXML(Component):
         results = []
         for val in vals:
             result = None
-            if isinstance(val, (str, unicode)):
+            if isinstance(val, str):
                 result = _escape_cdata(val, 'utf-8')
             else:
                 try:
@@ -53,18 +53,18 @@ class FastXML(Component):
             try:
                 outdir = self.get_parameter('output_dir')
                 if outdir is None:
-                    raise ValueError, 'Output directory not set'
+                    raise ValueError('Output directory not set')
 
                 onexist = self.get_parameter('on_exist')
                 if onexist is None:
-                    raise ValueError, 'On Exist not set'
+                    raise ValueError('On Exist not set')
 
                 # check that the output directory exists and is a directory
                 if not os.path.exists(outdir):
                     os.mkdir(outdir)
                 else:
                     if not os.path.isdir(outdir):
-                        raise ValueError, 'Output directory is not a directory'
+                        raise ValueError('Output directory is not a directory')
        
             except Exception as e:
                 log.error('Component Failed: %s' % self.__class__.__name__)
@@ -122,7 +122,7 @@ class FastXML(Component):
 
                         if os.path.exists(batchname):
                             if onexist == 'Abort':
-                                raise ValueError, '%s exists, abort' % batchname
+                                raise ValueError('%s exists, abort' % batchname)
                             elif onexist == 'Overwrite':
                                 log.info('Overwriting %s' % batchname)
                                 break

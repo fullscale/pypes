@@ -1,4 +1,4 @@
-import httplib
+import http.client
 import logging
 #import traceback
 from xml.etree.ElementTree import _escape_cdata
@@ -41,7 +41,7 @@ class Solr(Component):
 
     def _escape(self, val):
         result = None
-        if isinstance(val, (str, unicode)):
+        if isinstance(val, str):
             result = _escape_cdata(val)
         else:
             try:
@@ -61,37 +61,37 @@ class Solr(Component):
             try:
                 host = self.get_parameter('host')
                 if host is None:
-                    raise ValueError, 'Host not set'
+                    raise ValueError('Host not set')
 
                 port = self.get_parameter('port')
                 if port is None:
-                    raise ValueError, 'Port not set'
+                    raise ValueError('Port not set')
                 else:
                     port = int(port)
 
                 path = self.get_parameter('path')
                 if path is None:
-                    raise ValueError, 'Path not set'
+                    raise ValueError('Path not set')
 
                 commit = self.get_parameter('commit')
                 if commit is None:
-                    raise ValueError, 'Commit not set'
+                    raise ValueError('Commit not set')
 
                 commit_within = self.get_parameter('commit_within')
                 if commit_within is None:
-                    raise ValueError, 'Commit Within not set'
+                    raise ValueError('Commit Within not set')
 
                 wait_flush = self.get_parameter('wait_flush')
                 if wait_flush is None:
-                    raise ValueError, 'Wait Flush not set'
+                    raise ValueError('Wait Flush not set')
 
                 wait_searcher = self.get_parameter('wait_searcher')
                 if wait_searcher is None:
-                    raise ValueError, 'Wait Searcher not set'
+                    raise ValueError('Wait Searcher not set')
 
                 overwrite = self.get_parameter('overwrite')
                 if overwrite is None:
-                    raise ValueError, 'Overwrite not set'
+                    raise ValueError('Overwrite not set')
 
                 # convert to booleans
                 if commit == 'True':
@@ -185,12 +185,12 @@ class Solr(Component):
                 try:
                     headers = {'Content-Type': 'text/xml; charset=utf-8'}
                     updatepth = '%s/update' % path
-                    conn = httplib.HTTPConnection(host, port)
+                    conn = http.client.HTTPConnection(host, port)
                     conn.request('POST', updatepth, 
                                                 batch.encode('utf-8'), headers)
                     res = conn.getresponse()
                     if res.status != 200:
-                        raise ValueError, res.reason
+                        raise ValueError(res.reason)
                     
                     commitstr = '<commit%s%s />' % ( \
                         ' waitFlush="false"' if not wait_flush else '',

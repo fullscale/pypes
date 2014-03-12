@@ -22,9 +22,9 @@ class Debug(Component):
                 try:
                     docid = doc.get('id', doc.get_meta('url',
                                         default='no id found')).encode('utf-8')
-                    print '\n====>> Debug Dump: %s <<====' % docid 
+                    print('\n====>> Debug Dump: %s <<====' % docid) 
                     doc.pprint(meta=True)
-                    print '====>> End Debug: %s <<====\n' % docid
+                    print('====>> End Debug: %s <<====\n' % docid)
                 except Exception as e:
                     log.error('Component Failed: %s' % self.__class__.__name__)
                     log.error('Reason: %s' % str(e))                    

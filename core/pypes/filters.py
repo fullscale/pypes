@@ -7,7 +7,7 @@ of strings just as you would expect from the Unix versions.
 
 import stackless
 
-from component import Component
+from .component import Component
 
 class Null(Component):
     """A Null filter used to silently swallow data similar to /dev/null
@@ -84,7 +84,7 @@ class ConsoleOutputWriter(Component):
         """
         while True:
             for data in self.receive_all('in'):
-                print data
+                print(data)
             
             self.yield_ctrl()
 

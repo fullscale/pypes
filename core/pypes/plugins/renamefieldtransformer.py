@@ -55,15 +55,15 @@ class RenameField(Component):
             try:
                 originals = self.get_parameter('original_names')
                 if originals is None:
-                    raise ValueError, 'No source fields set'
+                    raise ValueError('No source fields set')
 
                 newnames = self.get_parameter('new_names')
                 if newnames is None:
-                    raise ValueError, 'No new field names set'
+                    raise ValueError('No new field names set')
 
                 mode = self.get_parameter('mode')
                 if mode is None:
-                    raise ValueError, 'No comflict mode defined'
+                    raise ValueError('No comflict mode defined')
 
                 # split into a list of  field names
                 originals = [o.strip() for o in originals.split(',')]
@@ -71,8 +71,8 @@ class RenameField(Component):
 
                 # make sure the list sizes are the same
                 if len(originals) != len(newnames):
-                    raise ValueError, 'There must be the same number of ' \
-                                    'original fields as there are new fields'
+                    raise ValueError('There must be the same number of ' \
+                                    'original fields as there are new fields')
                 
             except Exception as e:
                 log.error('Component Failed: %s' % self.__class__.__name__)
