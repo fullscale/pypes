@@ -16,7 +16,7 @@ Make sure they all pass before checking in any modifications.
 """
 
 # Provide support for Python 2.2*
-from __future__ import generators
+
 
 # Make Python 2.3 sets look like Python 2.4 sets.
 try:
@@ -112,9 +112,9 @@ def topsort(pairlist):
     children = {}  # element -> list of successors 
     for parent, child in pairlist: 
         # Make sure every element is a key in num_parents.
-        if not num_parents.has_key( parent ): 
+        if parent not in num_parents: 
             num_parents[parent] = 0 
-        if not num_parents.has_key( child ): 
+        if child not in num_parents: 
             num_parents[child] = 0 
 
         # Since child has a parent, increment child's num_parents count.
@@ -124,13 +124,13 @@ def topsort(pairlist):
         children.setdefault(parent, []).append(child)
 
     # Suck up everything without a parent.
-    answer = [x for x in num_parents.keys() if num_parents[x] == 0]
+    answer = [x for x in list(num_parents.keys()) if num_parents[x] == 0]
 
     # For everything in answer, knock down the parent count on its children.
     # Note that answer grows *in* the loop.
     for parent in answer: 
         del num_parents[parent]
-        if children.has_key( parent ): 
+        if parent in children: 
             for child in children[parent]: 
                 num_parents[child] -= 1
                 if num_parents[child] == 0: 
@@ -192,9 +192,9 @@ def topsort_levels(pairlist):
     children = {}  # element -> list of successors 
     for parent, child in pairlist: 
         # Make sure every element is a key in num_parents.
-        if not num_parents.has_key( parent ): 
+        if parent not in num_parents: 
             num_parents[parent] = 0 
-        if not num_parents.has_key( child ): 
+        if child not in num_parents: 
             num_parents[child] = 0 
 
         # Since child has a parent, increment child's num_parents count.
@@ -236,7 +236,7 @@ def topsort_levels_core(num_parents, children):
     """
     while 1:
         # Suck up everything without a predecessor.
-        level_parents = [x for x in num_parents.keys() if num_parents[x] == 0]
+        level_parents = [x for x in list(num_parents.keys()) if num_parents[x] == 0]
 
         if not level_parents:
             break
@@ -252,7 +252,7 @@ def topsort_levels_core(num_parents, children):
 
             del num_parents[level_parent]
 
-            if children.has_key(level_parent):
+            if level_parent in children:
                 for level_parent_child in children[level_parent]:
                     num_parents[level_parent_child] -= 1
                 del children[level_parent]

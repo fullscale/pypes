@@ -48,7 +48,7 @@ class Printer(Component):
     def run(self):
         while True:
             for data in self.receive_all('in'):
-                print data
+                print(data)
             self.yield_ctrl()
 
 tail    = Tail(open('/var/log/syslog', 'r'))

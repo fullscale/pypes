@@ -22,11 +22,7 @@ J. Paul Morrison's Book titled Flow-Based Programming.
  REQUIREMENTS 
 =============================
 
-Pypes requires Stackless Python 2.6.x
-
-You can obtain packages (both binary & source) from:
-
- - http://zope.stackless.com/download/sdocument_view
+Pypes requires Stackless Python 3.3.x
 
 =============================
  INSTALLATION 

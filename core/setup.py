@@ -1,10 +1,10 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
   name="pypes",
-  version = '1.2',
-  description = 'A Flow-Based programming framework',
-  long_description = """
+  version='3',
+  description='A Flow-Based programming framework',
+  long_description="""
 Pypes provides a framework for building component oriented architectures. It
 falls under the paradigm of Flow-Based Programming in which applications are 
 defined as networks of "black box" processes, which exchange data across 
@@ -28,13 +28,10 @@ Features
 - Component Based
 - Cross Platform
 - Open Source
-- Web 2.0 Interface (see Pypes `Visual Design Studio`_)
-
-.. _Visual Design Studio: http://pypi.python.org/pypi/pypesvds
 
 Requirements
 ------------
-- Stackless Python 2.6.x
+- Stackless Python 3.3.x
 
 Usage
 -----
@@ -55,22 +52,21 @@ Changelog
 - Initial release
 
 """,
-  download_url = 'https://sourceforge.net/projects/pypes/files/',
-  author = 'Eric Gaumer',
-  author_email = 'egaumer@pypes.org',
-  url = 'http://www.pypes.org',
-  classifiers = [
+  download_url='https://sourceforge.net/projects/pypes/files/',
+  author='Eric Gaumer',
+  author_email='egaumer@pypes.org',
+  url='http://www.pypes.org',
+  classifiers=[
     'Topic :: Text Processing :: Filters',
     'Topic :: Text Processing :: Indexing',
     'Topic :: Internet :: WWW/HTTP :: Indexing/Search',
     'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
     'Topic :: Software Development :: Libraries :: Application Frameworks',
-    'Programming Language :: Python :: 2.6',
+    'Programming Language :: Python :: 3.3',
     'Operating System :: OS Independent',
     'Natural Language :: English',
-    'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
+    'License :: OSI Approved :: LGPL',
     'Intended Audience :: Developers',
-    'Framework :: Pylons',
     'Framework :: Paste',
     'Framework :: Buildout',
     'Environment :: Web Environment',
@@ -78,4 +74,3 @@ Changelog
   ],
   packages=["pypes"],
 )
-

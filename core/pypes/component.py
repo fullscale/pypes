@@ -146,7 +146,7 @@ class Component(object):
         try:
             item = self._inputs[name]
         except:
-            print 'Input does not exist'
+            print('Input does not exist')
         else:
             item[0] = edge
             self._inputs[name] = item
@@ -174,7 +174,7 @@ class Component(object):
         try:
             item = self._outputs[name]
         except:
-            print 'Output does not exist'
+            print('Output does not exist')
         else:
             item[0] = edge
             self._outputs[name] = item
