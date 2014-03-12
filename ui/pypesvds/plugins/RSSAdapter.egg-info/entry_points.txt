@@ -1,3 +1,0 @@
-[pypesvds.plugins]
-rssadapter = rssadapter.rssadapter:RSS
-
