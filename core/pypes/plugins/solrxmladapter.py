@@ -3,7 +3,7 @@ import logging
 import xml.etree.cElementTree as ET
 
 from pypes.component import Component
-from pypesvds.lib.packet import Packet
+from pypes.packet import Packet
 
 log = logging.getLogger(__name__)
 

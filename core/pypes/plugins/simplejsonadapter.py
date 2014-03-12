@@ -1,7 +1,7 @@
 import logging
 import traceback
 import json
-from pypesvds.lib.packet import Packet
+from pypes.packet import Packet
 from pypes.component import Component
 
 log = logging.getLogger(__name__)

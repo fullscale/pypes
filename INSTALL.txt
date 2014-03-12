@@ -1,38 +1,17 @@
 Requirements:
 
-    pypesvds requires stackless Python >= 2.6
-
-    Downloads:
-    
-        -  OS X: http://www.stackless.com/binaries/stackless-2.6.2-macosx2009-06-09.dmg
-        - Win32: http://www.stackless.com/binaries/python-2.6.2-stackless.msi
-        - Linux: http://www.stackless.com/binaries/stackless-262-export.tar.bz2
-
     If you have Python already installed, the stackless installer might replace
     the current version if they match but you can also have multiple versions of
     Python installed if you build it yourself.
 
     Stackless Python is an extension of the regular Python interpreter. Any 
     existing Python code will run with any modifications. Stackless simply
-    adds some extra capabilities to regaulr Python.
+    adds some extra capabilities to regular Python.
     
     For detailed installation instructions please see:
     http://bitbucket.org/egaumer/pypes/wiki/Install_Guide
 
-To install pypesvds buildout:
+Install:
 
-    $ python bootstrap.py                               # run bootstrap
-    $ bin/buildout                                      # run buildout
-    $ bin/paster make-config pypesvds production.ini    # create distudio ini config
-    $ bin/paster setup-app production.ini               # setup app/custom plugin env
-    $ bin/paster serve production.ini                   # start pypesvds
-
-To create a custom component (project):
-
-    $ bin/paster create --list-templates                # shows templates available 
-    $ bin/paster create -t studio_plugin myplugin       # creates "myplugin" component project
-    $ cd myplugin                                       # change directories
-    $ vim myplugin/myplugin.py                          # write your component logic
-    $ ../bin/python setup.py bdist_egg                  # build the project
-    $ cp dist/myplugin-0.1-py2.6.egg  ../plugins        # place the built component in your plugins directory
-
+cd core
+python setup.py install
