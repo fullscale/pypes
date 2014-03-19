@@ -40,14 +40,16 @@ class NMFunction(pypes.component.Component):
         # self.remove_output('out')
         self._n = n
         self._m = m
+        self._in_ports = ["in"]
+        self._out_ports = ["out"]
         if n > 1:
-            self._in_ports = ["in"] + ["in{0}".format(i)
-                                       for i in range(1, n)]
+            self._in_ports += ["in{0}".format(i)
+                               for i in range(1, n)]
             for port in self._in_ports:
                 self.add_input(port, 'input')
         if m > 1:
-            self._out_ports = ["out"] + ["out{0}".format(i)
-                                         for i in range(1, m)]
+            self._out_ports += ["out{0}".format(i)
+                                for i in range(1, m)]
             for port in self._out_ports:
                 self.add_output(port, 'output')
 
@@ -67,12 +69,13 @@ class NMFunction(pypes.component.Component):
             # for each packet waiting on our input port
             packets = [self.receive(port)
                        for port in self._in_ports]
+            log.debug(packets)
             try:
                 args = [packet.get("data")
                         for packet in packets]
                 results = function(*args)
                 if self._m == 1:
-                    packet = pypes.packet.Packet()
+                    packet = packets[0]
                     packet.set("data", results)
                     self.send("out", packet)
                 elif len(results) == self._m and self._m != 1:
@@ -87,9 +90,6 @@ class NMFunction(pypes.component.Component):
             except:
                 log.error('Component Failed: %s',
                           self.__class__.__name__, exc_info=True)
-
-            # send the packet to the next component
-            self.send('out', packet)
 
             # yield the CPU, allowing another component to run
             self.yield_ctrl()
