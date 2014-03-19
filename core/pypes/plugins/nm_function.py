@@ -69,11 +69,13 @@ class NMFunction(pypes.component.Component):
             # for each packet waiting on our input port
             packets = [self.receive(port)
                        for port in self._in_ports]
-            log.debug(packets)
             try:
                 args = [packet.get("data")
                         for packet in packets]
                 results = function(*args)
+                log.debug("%s: results %s",
+                          self.__class__.__name__,
+                          results)
                 if self._m == 1:
                     packet = packets[0]
                     packet.set("data", results)
@@ -81,7 +83,15 @@ class NMFunction(pypes.component.Component):
                 elif len(results) == self._m and self._m != 1:
                     for result, port in zip(results, self._out_ports):
                         packet = pypes.packet.Packet()
+                        for key, value in packets[0]:
+                            log.debug("%s %s %s", self.__class__.__name__,
+                                      key, value)
+                            packet.set(key, value)
                         packet.set("data", result)
+                        log.debug("%s: sending %s to %s",
+                                  self.__class__.__name__,
+                                  packet.get("data"),
+                                  port)
                         self.send(port, packet)
                 else:
                     log.error('Component Failed: %s, %s outputs?',

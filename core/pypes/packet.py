@@ -108,21 +108,21 @@ class Packet(object):
         @param keep_meta: if related metadata should be deleted or not
         @type keep_meta: boolean, default True
         """
-            
+
         if isinstance(value, list) and multi:
             self._doc[attr] = value[:]
             self.set_meta('multi', multi, attr)
         else:
-            self._doc[attr] = [value]
+            self._doc[attr] = value
             self.set_meta('multi', multi, attr)
-            
+
         if not keep_meta and attr in self._attr_meta:
             del self._attr_meta[attr]
 
     def add(self, attr, value, multi=False):
-        """Sets the attribute only if it does not already exist.  If multi is 
-        True and value is a list, then the attribute will be set multivalued and
-        each item in value will be a value for the attribute.
+        """Sets the attribute only if it does not already exist.  If multi is
+        True and value is a list, then the attribute will be set multivalued
+        and each item in value will be a value for the attribute.
 
         @param attr: the attribute to add
         @type attr: string

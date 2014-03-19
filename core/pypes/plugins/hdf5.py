@@ -127,11 +127,12 @@ class Hdf5Reader(pypes.component.Component):
             # for each file name string waiting on our input port
             datasets = []
             packet = self.receive("in")
+            log.debug("%s received %s",
+                      self.__class__.__name__,
+                      packet.get_attributes())
             file_name = packet.get("file_name")
             object_name = packet.get("data")
             try:
-                log.debug('%s reading file %s',
-                          self.__class__.__name__, file_name)
                 input_file = h5py.File(file_name)
                 input_object = input_file[object_name]
                 if isinstance(input_object, h5py.Dataset):

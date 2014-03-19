@@ -58,8 +58,8 @@ def connect_graph_components(graph):
                     raise ComponentPortError(
                         '''Trying to connect undefined
                            input port {0} {1}'''.format(e, edges[e][1]))
-
-                e.connect_input(edges[e][1], pipe)
+                else:
+                    e.connect_input(edges[e][1], pipe)
     return nodes
 
 
