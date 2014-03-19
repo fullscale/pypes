@@ -1,6 +1,7 @@
 """Any function from n inputs to m outputs"""
 
 import logging
+from itertools import zip_longest
 
 import pypes.component
 
@@ -9,10 +10,7 @@ log = logging.getLogger(__name__)
 
 def default_function(*args):
     "pass"
-    if len(args) == 1:
-        return args[0]
-    else:
-        return args
+    return args
 
 
 class NMFunction(pypes.component.Component):
@@ -65,37 +63,43 @@ class NMFunction(pypes.component.Component):
         while True:
 
             function = self.get_parameter('function')
+            name = function.__name__
 
-            # for each packet waiting on our input port
             packets = [self.receive(port)
                        for port in self._in_ports]
+            log.debug("function %s received %s", name, packets)
+            # for each packet waiting on our input port
             try:
                 args = [packet.get("data")
                         for packet in packets]
                 results = function(*args)
                 log.debug("%s: results %s",
-                          self.__class__.__name__,
+                          name,
                           results)
                 if self._m == 1:
                     packet = packets[0]
-                    packet.set("data", results)
+                    packet.set("data", results[0])
                     self.send("out", packet)
-                else:
-                    for result, port in zip(results, self._out_ports):
+                elif self._m > 1 and len(results) <= self._m:
+                    for result, port in zip_longest(results,
+                                                    self._out_ports,
+                                                    fillvalue=results[-1]):
                         packet = pypes.packet.Packet()
                         for key, value in packets[0]:
-                            log.debug("%s %s %s", self.__class__.__name__,
+                            log.debug("%s %s %s", name,
                                       key, value)
                             packet.set(key, value)
                         packet.set("data", result)
                         log.debug("%s: sending %s to %s",
-                                  self.__class__.__name__,
+                                  name,
                                   packet.get("data"),
                                   port)
                         self.send(port, packet)
+                else:
+                    raise ValueError("too many results!")
             except:
                 log.error('Component Failed: %s',
-                          self.__class__.__name__, exc_info=True)
+                          name, exc_info=True)
 
             # yield the CPU, allowing another component to run
             self.yield_ctrl()
