@@ -113,7 +113,7 @@ class Packet(object):
             self._doc[attr] = value[:]
             self.set_meta('multi', multi, attr)
         else:
-            self._doc[attr] = value
+            self._doc[attr] = [value]
             self.set_meta('multi', multi, attr)
 
         if not keep_meta and attr in self._attr_meta:
@@ -412,8 +412,8 @@ class Packet(object):
 
         @return: tuple (key/value) pairs
         """
-        for field in self._doc.items():
-            yield field
+        for key in self._doc.keys():
+            yield key, self.get(key)
 
     def __eq__(self, rhs):
         """Packet == operator

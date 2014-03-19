@@ -80,7 +80,7 @@ class NMFunction(pypes.component.Component):
                     packet = packets[0]
                     packet.set("data", results)
                     self.send("out", packet)
-                elif len(results) == self._m and self._m != 1:
+                else:
                     for result, port in zip(results, self._out_ports):
                         packet = pypes.packet.Packet()
                         for key, value in packets[0]:
@@ -93,10 +93,6 @@ class NMFunction(pypes.component.Component):
                                   packet.get("data"),
                                   port)
                         self.send(port, packet)
-                else:
-                    log.error('Component Failed: %s, %s outputs?',
-                              self.__class__.__name__,
-                              len(results), exc_info=True)
             except:
                 log.error('Component Failed: %s',
                           self.__class__.__name__, exc_info=True)

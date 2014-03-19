@@ -137,8 +137,9 @@ class Hdf5Reader(pypes.component.Component):
                 input_object = input_file[object_name]
                 if isinstance(input_object, h5py.Dataset):
                     datasets.append(input_object)
-                    log.debug('%s found dataset %s'.format(
-                        self.__class__.__name__, len(datasets)))
+                    log.debug('%s found %s datasets',
+                              self.__class__.__name__,
+                              len(datasets))
                 elif isinstance(input_object, h5py.Group):
                     datasets.extend(
                         [dataset
