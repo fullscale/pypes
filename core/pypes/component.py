@@ -356,7 +356,7 @@ class HigherOrderComponent(Component):
 
     """
 
-    __metatype__ = None
+    __metatype__ = "TRANSFORMER"
 
     def __init__(self, graph):
         """Initialize the Component from the graph description
