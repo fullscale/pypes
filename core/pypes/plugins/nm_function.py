@@ -67,15 +67,12 @@ class NMFunction(pypes.component.Component):
 
             packets = [self.receive(port)
                        for port in self._in_ports]
-            log.debug("function %s received %s", name, packets)
-            # for each packet waiting on our input port
             try:
                 args = [packet.get("data")
                         for packet in packets]
+                log.debug("%s: args %s", name, args)
                 results = function(*args)
-                log.debug("%s: results %s",
-                          name,
-                          results)
+                log.debug("%s: results %s", name, results)
                 if self._m == 1:
                     packet = packets[0]
                     packet.set("data", results[0])
@@ -86,14 +83,10 @@ class NMFunction(pypes.component.Component):
                                                     fillvalue=results[-1]):
                         packet = pypes.packet.Packet()
                         for key, value in packets[0]:
-                            log.debug("%s %s %s", name,
-                                      key, value)
                             packet.set(key, value)
                         packet.set("data", result)
                         log.debug("%s: sending %s to %s",
-                                  name,
-                                  packet.get("data"),
-                                  port)
+                                  name, packet.get("data"), port)
                         self.send(port, packet)
                 else:
                     raise ValueError("too many results!")
