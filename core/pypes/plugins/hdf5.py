@@ -88,11 +88,9 @@ class Hdf5Writer(pypes.component.Component):
             self.yield_ctrl()
 
 
-class Hdf5Reader(pypes.component.Component):
+class Hdf5ReadDataset(pypes.component.Component):
     """
-    Read either
-        all the datasets in a h5py.Group if the path of a group is passed
-        one dataset if the path of a h5py.Dataset is passed
+    Read a dataset
     The files are stored in self.files so that they are not prematurely
     garbage collected.
 
@@ -125,37 +123,21 @@ class Hdf5Reader(pypes.component.Component):
         # Define our components entry point
         while True:
             # for each file name string waiting on our input port
-            datasets = []
             packet = self.receive("in")
-            log.debug("%s received %s",
+            log.debug("%s received %s %s",
                       self.__class__.__name__,
-                      packet.get_attributes())
+                      packet.get("file_name"),
+                      packet.get("data"))
             file_name = packet.get("file_name")
             object_name = packet.get("data")
             try:
                 input_file = h5py.File(file_name)
                 input_object = input_file[object_name]
-                if isinstance(input_object, h5py.Dataset):
-                    datasets.append(input_object)
-                    log.debug('%s found %s datasets',
-                              self.__class__.__name__,
-                              len(datasets))
-                elif isinstance(input_object, h5py.Group):
-                    datasets.extend(
-                        [dataset
-                         for dataset in input_object.values()
-                         if isinstance(dataset, h5py.Dataset)])
-                    log.debug('%s found %s datasets',
-                              self.__class__.__name__, len(datasets))
-                else:
-                    log.debug("%s: h5py group/dataset %s not found!",
-                              self.__class__.__name__, object_name)
-                #save files so that they are not garbage collected
                 self.files.append(input_file)
             except:
                 log.error('Component Failed: %s',
                           self.__class__.__name__, exc_info=True)
-            packet.set("data", datasets)
+            packet.set("data", input_object)
             # send the packet to the next component
             self.send('out', packet)
             # yield the CPU, allowing another component to run
