@@ -49,7 +49,7 @@ class ZmqReply(Component):
                 # if requested through the socket, I will send the data
                 message = socket.recv_string()
                 socket.send_pyobj(packet)
-                self.yield_ctrl()
+            self.yield_ctrl()
 
 
 class ZmqPush(Component):
