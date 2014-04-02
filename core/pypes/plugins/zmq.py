@@ -64,11 +64,11 @@ class ZmqPush(Component):
         self.set_parameter("name", None)
 
     def run(self):
-        port = self.get_parameter("port")
-        context = zmq.Context()
-        socket = context.socket(zmq.PUSH)
-        socket.bind("tcp://*:{0}".format(port))
         while True:
+            port = self.get_parameter("port")
+            context = zmq.Context()
+            socket = context.socket(zmq.PUSH)
+            socket.bind("tcp://*:{0}".format(port))
             for packet in self.receive_all('in'):
                 # if requested through the socket, I will send the data
                 data = packet.get("data")
@@ -85,4 +85,5 @@ class ZmqPush(Component):
                               self.__class__.__name__,
                               type(data))
                     socket.send_json(data)
+            socket.close()
             self.yield_ctrl()
