@@ -135,8 +135,9 @@ class Hdf5ReadDataset(pypes.component.Component):
                 input_object = input_file[object_name]
                 self.files.append(input_file)
             except:
-                log.error('Component Failed: %s',
-                          self.__class__.__name__, exc_info=True)
+                log.error('%s failed while reading %s',
+                          self.__class__.__name__,
+                          file_name, exc_info=True)
             packet.set("data", input_object)
             # send the packet to the next component
             self.send('out', packet)
