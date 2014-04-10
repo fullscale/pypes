@@ -79,13 +79,85 @@ class Hdf5Writer(pypes.component.Component):
                               dataset_name,
                               key, value)
                     output_group[dataset_name].attrs[key] = value
-                if output_file:
-                    output_file.close()
+                    if output_file:
+                        output_file.close()
             except:
                 log.error('Component Failed: %s',
                           self.__class__.__name__, exc_info=True)
-            # yield the CPU, allowing another component to run
-            self.yield_ctrl()
+                # yield the CPU, allowing another component to run
+                self.yield_ctrl()
+
+
+class Hdf5ReadGroup(pypes.component.Component):
+    """
+    Read all datasets in a group
+    The files are stored in self.files so that they are not prematurely
+    garbage collected.
+
+    mandatory input packet attributes:
+    - file_name: path of the hdf5 file
+    - data: path inside the hdf5 file
+
+    parameters:
+    None
+
+    output packet attributes:
+    - file_names: the list of the paths of the input files
+    - data: the list of h5py.Datasets read from the file(s)
+
+    """
+
+    __metatype__ = 'ADAPTER'
+
+    def __init__(self):
+        # initialize parent class
+        pypes.component.Component.__init__(self)
+
+        #store files so that they are not garbage collected
+        self.files = []
+
+        # log successful initialization message
+        log.debug('Component Initialized: %s', self.__class__.__name__)
+
+    def run(self):
+        # Define our components entry point
+        while True:
+            # for each file name string waiting on our input port
+            packet = self.receive("in")
+            if packet is not None:
+                log.debug("%s received %s %s",
+                          self.__class__.__name__,
+                          packet.get("file_name"),
+                          packet.get("data"))
+                file_name = packet.get("file_name")
+                object_name = packet.get("data")
+                try:
+                    input_file = h5py.File(file_name)
+                    input_object = [
+                        dataset
+                        for dataset in input_file[object_name].values()
+                        if isinstance(dataset, h5py.Dataset)]
+                    self.files.append(input_file)
+                except:
+                    log.error('%s failed while reading %s',
+                              self.__class__.__name__,
+                              file_name, exc_info=True)
+                    packet.set("data", input_object)
+                    # send the packet to the next component
+                    self.send('out', packet)
+                    # yield the CPU, allowing another component to run
+                    self.yield_ctrl()
+
+    def __del__(self):
+        """close files when the reference count is 0."""
+        for f in self.files:
+            log.debug('{0} closing file {1}'.format(
+                self.__class__.__name__, f.filename))
+            if f:
+                f.close()
+            else:
+                log.debug('{0} file {1} was already closed'.format(
+                    self.__class__.__name__, f.filename))
 
 
 class Hdf5ReadDataset(pypes.component.Component):
@@ -138,11 +210,11 @@ class Hdf5ReadDataset(pypes.component.Component):
                 log.error('%s failed while reading %s',
                           self.__class__.__name__,
                           file_name, exc_info=True)
-            packet.set("data", input_object)
-            # send the packet to the next component
-            self.send('out', packet)
-            # yield the CPU, allowing another component to run
-            self.yield_ctrl()
+                packet.set("data", input_object)
+                # send the packet to the next component
+                self.send('out', packet)
+                # yield the CPU, allowing another component to run
+                self.yield_ctrl()
 
     def __del__(self):
         """close files when the reference count is 0."""
@@ -171,4 +243,4 @@ def output_name(files, component_name):
     else:
         output_file_name = os.path.join(
             dir_name, "{0}/{1}".format(first_file_name, component_name))
-    return output_file_name
+        return output_file_name
