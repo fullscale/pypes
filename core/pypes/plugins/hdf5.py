@@ -128,34 +128,34 @@ class Hdf5ReadGroup(pypes.component.Component):
         # Define our components entry point
         while True:
             # for each file name string waiting on our input port
-            packet = self.receive("in")
-            if packet is not None:
-                log.debug("%s received %s",
-                          self.__class__.__name__,
-                          packet)
-                log.debug("with file name %s and data %s",
-                          packet.get("file_name"),
-                          packet.get("data"))
-                file_name = packet.get("file_name")
-                object_name = packet.get("data")
-                try:
-                    input_file = h5py.File(file_name)
-                    input_object = [
-                        dataset
-                        for dataset in input_file[object_name].values()
-                        if isinstance(dataset, h5py.Dataset)]
-                    log.debug("%s found %d datasets",
-                              self.__class__.__name__,
-                              len(input_object))
-                    self.files.append(input_file)
-                    packet.set("data", input_object)
-                except:
-                    log.error('%s failed while reading %s',
-                              self.__class__.__name__,
-                              file_name, exc_info=True)
+            for packet in self.receive_all("in"):
+                if packet is not None:
+                    try:
+                        log.debug("%s received %s",
+                                  self.__class__.__name__,
+                                  packet)
+                        log.debug("with file name %s and data %s",
+                                  packet.get("file_name"),
+                                  packet.get("data"))
+                        file_name = packet.get("file_name")
+                        object_name = packet.get("data")
+                        input_file = h5py.File(file_name)
+                        input_object = [
+                            dataset
+                            for dataset in input_file[object_name].values()
+                            if isinstance(dataset, h5py.Dataset)]
+                        log.debug("%s found %d datasets",
+                                  self.__class__.__name__,
+                                  len(input_object))
+                        self.files.append(input_file)
+                        packet.set("data", input_object)
+                    except:
+                        log.error('%s failed while reading %s',
+                                  self.__class__.__name__,
+                                  file_name, exc_info=True)
 
-                    # send the packet to the next component
-            self.send('out', packet)
+                        # send the packet to the next component
+                self.send('out', packet)
             # yield the CPU, allowing another component to run
             self.yield_ctrl()
 
@@ -206,24 +206,24 @@ class Hdf5ReadDataset(pypes.component.Component):
         # Define our components entry point
         while True:
             # for each file name string waiting on our input port
-            packet = self.receive("in")
-            log.debug("%s received %s %s",
-                      self.__class__.__name__,
-                      packet.get("file_name"),
-                      packet.get("data"))
-            file_name = packet.get("file_name")
-            object_name = packet.get("data")
-            try:
-                input_file = h5py.File(file_name)
-                input_object = input_file[object_name]
-                self.files.append(input_file)
-                packet.set("data", input_object)
-            except:
-                log.error('%s failed while reading %s',
+            for packet in self.receive_all("in"):
+                log.debug("%s received %s %s",
                           self.__class__.__name__,
-                          file_name, exc_info=True)
-            # send the packet to the next component
-            self.send('out', packet)
+                          packet.get("file_name"),
+                          packet.get("data"))
+                try:
+                    file_name = packet.get("file_name")
+                    object_name = packet.get("data")
+                    input_file = h5py.File(file_name)
+                    input_object = input_file[object_name]
+                    self.files.append(input_file)
+                    packet.set("data", input_object)
+                except:
+                    log.error('%s failed while reading %s',
+                              self.__class__.__name__,
+                              file_name, exc_info=True)
+                # send the packet to the next component
+                self.send('out', packet)
             # yield the CPU, allowing another component to run
             self.yield_ctrl()
 
