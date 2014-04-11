@@ -50,7 +50,11 @@ class Hdf5Writer(pypes.component.Component):
             overwrite = self.get_parameter("overwrite")
             packet = self.receive("in")
             try:
+                log.debug("%s received %s",
+                          self.__class__.__name__,
+                          packet)
                 file_name = packet.get("full_path")
+                log.debug("with path %s", file_name)
                 folder_name, tail_name = os.path.split(file_name)
                 output_file_name = folder_name + ".hdf5"
                 output_file = h5py.File(output_file_name)
@@ -126,8 +130,10 @@ class Hdf5ReadGroup(pypes.component.Component):
             # for each file name string waiting on our input port
             packet = self.receive("in")
             if packet is not None:
-                log.debug("%s received %s %s",
+                log.debug("%s received %s",
                           self.__class__.__name__,
+                          packet)
+                log.debug("with file name %s and data %s",
                           packet.get("file_name"),
                           packet.get("data"))
                 file_name = packet.get("file_name")
@@ -248,4 +254,4 @@ def output_name(files, component_name):
     else:
         output_file_name = os.path.join(
             dir_name, "{0}/{1}".format(first_file_name, component_name))
-        return output_file_name
+    return output_file_name
