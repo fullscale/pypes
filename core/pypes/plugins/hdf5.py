@@ -73,19 +73,20 @@ class Hdf5Writer(pypes.component.Component):
                           dataset_name,
                           output_file_name,
                           self.get_parameter("group"))
-                for key, value in packet.get_attributes().iteritems():
+                for key in packet.get_attribute_names():
+                    value = packet.get(key)
                     log.debug("%s: adding attribute to dataset %s: %s=%s",
                               self.__class__.__name__,
                               dataset_name,
                               key, value)
                     output_group[dataset_name].attrs[key] = value
-                    if output_file:
-                        output_file.close()
+                if output_file:
+                    output_file.close()
             except:
                 log.error('Component Failed: %s',
                           self.__class__.__name__, exc_info=True)
-                # yield the CPU, allowing another component to run
-                self.yield_ctrl()
+            # yield the CPU, allowing another component to run
+            self.yield_ctrl()
 
 
 class Hdf5ReadGroup(pypes.component.Component):
@@ -102,7 +103,7 @@ class Hdf5ReadGroup(pypes.component.Component):
     None
 
     output packet attributes:
-    - file_names: the list of the paths of the input files
+    - file_name: the path of the input file
     - data: the list of h5py.Datasets read from the file(s)
 
     """
@@ -137,16 +138,20 @@ class Hdf5ReadGroup(pypes.component.Component):
                         dataset
                         for dataset in input_file[object_name].values()
                         if isinstance(dataset, h5py.Dataset)]
+                    log.debug("%s found %d datasets",
+                              self.__class__.__name__,
+                              len(input_object))
                     self.files.append(input_file)
+                    packet.set("data", input_object)
                 except:
                     log.error('%s failed while reading %s',
                               self.__class__.__name__,
                               file_name, exc_info=True)
-                    packet.set("data", input_object)
+
                     # send the packet to the next component
-                    self.send('out', packet)
-                    # yield the CPU, allowing another component to run
-                    self.yield_ctrl()
+            self.send('out', packet)
+            # yield the CPU, allowing another component to run
+            self.yield_ctrl()
 
     def __del__(self):
         """close files when the reference count is 0."""
@@ -206,15 +211,15 @@ class Hdf5ReadDataset(pypes.component.Component):
                 input_file = h5py.File(file_name)
                 input_object = input_file[object_name]
                 self.files.append(input_file)
+                packet.set("data", input_object)
             except:
                 log.error('%s failed while reading %s',
                           self.__class__.__name__,
                           file_name, exc_info=True)
-                packet.set("data", input_object)
-                # send the packet to the next component
-                self.send('out', packet)
-                # yield the CPU, allowing another component to run
-                self.yield_ctrl()
+            # send the packet to the next component
+            self.send('out', packet)
+            # yield the CPU, allowing another component to run
+            self.yield_ctrl()
 
     def __del__(self):
         """close files when the reference count is 0."""
