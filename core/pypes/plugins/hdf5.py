@@ -6,6 +6,7 @@ Output from numpy to hdf5 datasets
 import logging
 import os
 import h5py
+import numpy as np
 
 import pypes.component
 import pypes.packet
@@ -51,7 +52,6 @@ class Hdf5Writer(pypes.component.Component):
                           packet)
                 file_name = packet.get("file_name")
                 log.debug("with path %s", file_name)
-                folder_name, tail_name = os.path.split(file_name)
                 output_file = h5py.File(file_name)
                 output_group_name = self.get_parameter("group")
                 output_group = output_file.require_group(output_group_name)
@@ -60,20 +60,21 @@ class Hdf5Writer(pypes.component.Component):
                     log.debug("%s: read attribute %s=%s",
                               self.__class__.__name__,
                               key, value)
-                    if not isinstance(np.ndarray, value):
-                        log.debug("is not a ndarray, skipping")
+                    if not isinstance(value, np.ndarray):
+                        log.debug("%s is not a ndarray, skipping",
+                                  type(value))
                         continue
                     if key in output_group and overwrite:
                         del output_group[key]
                     elif key in output_group and not overwrite:
                         log.debug("dataset exists, not overwriting")
-                    else:
-                        output_group[key] = value
-                        log.debug("%s: written dataset %s to file %s group %s",
-                                  self.__class__.__name__,
-                                  key,
-                                  file_name,
-                                  output_group_name)
+                        continue
+                    output_group[key] = value
+                    log.debug("%s: written dataset %s to file %s group %s",
+                              self.__class__.__name__,
+                              key,
+                              file_name,
+                              output_group_name)
                 output_file.close()
             except:
                 log.error('Component Failed: %s',
