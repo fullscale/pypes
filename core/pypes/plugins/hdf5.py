@@ -17,12 +17,8 @@ class Hdf5Writer(pypes.component.Component):
     """Output an image to HDF5, with all of its metadata.
 
     mandatory input packet attributes:
-    - full_path: path of the original raw file, used to calculate the
-    hdf5 path and the name of the dataset
-    - data: containing the image as a numpy array
-
-    optional input packet attributes:
-    - any: will be added as attributes for the hdf5 Dataset
+    - file_name: path of the destination hdf5 file
+    - [any]: if instances of np.ndarray will be saved to the file
 
     parameters:
     - overwrite: [default: False] overwrite the dataset if it already
@@ -53,39 +49,32 @@ class Hdf5Writer(pypes.component.Component):
                 log.debug("%s received %s",
                           self.__class__.__name__,
                           packet)
-                file_name = packet.get("full_path")
+                file_name = packet.get("file_name")
                 log.debug("with path %s", file_name)
                 folder_name, tail_name = os.path.split(file_name)
-                output_file_name = folder_name + ".hdf5"
-                output_file = h5py.File(output_file_name)
-                output_group = output_file.require_group(
-                    self.get_parameter("group"))
-                dataset_name = os.path.splitext(tail_name)[0]
-                if dataset_name in output_group and overwrite:
-                    del output_group[dataset_name]
-                elif dataset_name in output_group and not overwrite:
-                    log.debug(
-                        "{0}: dataset {1} exists, not overwriting".format(
-                            self.__class__.__name__, dataset_name))
-                    output_file.close()
-                    self.yield_ctrl()
-                    continue
-                output_group[dataset_name] = packet.get("data")
-                packet.delete("data")
-                log.debug("%s: written dataset %s to file %s group %s",
-                          self.__class__.__name__,
-                          dataset_name,
-                          output_file_name,
-                          self.get_parameter("group"))
+                output_file = h5py.File(file_name)
+                output_group_name = self.get_parameter("group")
+                output_group = output_file.require_group(output_group_name)
                 for key in packet.get_attribute_names():
                     value = packet.get(key)
-                    log.debug("%s: adding attribute to dataset %s: %s=%s",
+                    log.debug("%s: read attribute %s=%s",
                               self.__class__.__name__,
-                              dataset_name,
                               key, value)
-                    output_group[dataset_name].attrs[key] = value
-                if output_file:
-                    output_file.close()
+                    if not isinstance(np.ndarray, value):
+                        log.debug("is not a ndarray, skipping")
+                        continue
+                    if key in output_group and overwrite:
+                        del output_group[key]
+                    elif key in output_group and not overwrite:
+                        log.debug("dataset exists, not overwriting")
+                    else:
+                        output_group[key] = value
+                        log.debug("%s: written dataset %s to file %s group %s",
+                                  self.__class__.__name__,
+                                  key,
+                                  file_name,
+                                  output_group_name)
+                output_file.close()
             except:
                 log.error('Component Failed: %s',
                           self.__class__.__name__, exc_info=True)
@@ -239,7 +228,7 @@ class Hdf5ReadDataset(pypes.component.Component):
                     self.__class__.__name__, f.filename))
 
 
-def output_name(files, component_name):
+def output_name(files):
     """
     Get the name of the output hdf5 file from a list of input files.
 
@@ -248,10 +237,10 @@ def output_name(files, component_name):
     last_file_name = os.path.splitext(os.path.basename(files[-1]))[0]
     dir_name = os.path.dirname(files[0])
     if len(files) > 1:
-        output_file_name = os.path.join(
-            dir_name, "{0}_{1}/{2}".format(
-                first_file_name, last_file_name, component_name))
+        file_name = os.path.join(
+            dir_name, "{0}_{1}.hdf5".format(
+                first_file_name, last_file_name))
     else:
-        output_file_name = os.path.join(
-            dir_name, "{0}/{1}".format(first_file_name, component_name))
-    return output_file_name
+        file_name = os.path.join(
+            dir_name, "{0}.hdf5".format(first_file_name))
+    return file_name
