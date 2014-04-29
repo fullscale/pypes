@@ -70,9 +70,14 @@ class Hdf5Writer(pypes.component.Component):
                         log.debug("dataset exists, not overwriting")
                         continue
                     output_group[key] = value
-                    log.debug("%s: written dataset %s to file %s group %s",
+                    log.debug("""
+                    %s: written dataset %s
+                    with shape %s
+                    to file %s group %s
+                    """,
                               self.__class__.__name__,
                               key,
+                              value.shape,
                               file_name,
                               output_group_name)
                 output_file.close()
