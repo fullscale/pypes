@@ -13,5 +13,4 @@ Requirements:
 
 Install:
 
-cd core
 python setup.py install
